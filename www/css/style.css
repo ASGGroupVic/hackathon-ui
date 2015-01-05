@@ -6,3 +6,17 @@ body{
 	background-color: #FFF;
 	padding: 1em;
 }
+
+.moodinput{
+	position: absolute;
+	left: -9999;
+}
+
+.emotIcon{
+	max-width: 2em;
+	min-width: 2em;
+}
+
+input[type="radio"]:checked + img{
+	background-color: #ACC;
+}
