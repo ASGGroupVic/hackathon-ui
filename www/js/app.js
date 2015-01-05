@@ -34,6 +34,9 @@
 	      return $scope.activePanel === panelName;
 	    };
     
+	    $scope.login = function(){
+	      return $scope.setPanel('updateMood');
+	    };
   	});
 
   	app.controller('UpdateMoodController', function($scope){
