@@ -30,4 +30,10 @@
 		};
 	});
 
+	app.directive("consultantView", function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'consultant-view.html'
+		};
+	});
 })();

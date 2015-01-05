@@ -11,6 +11,7 @@
 		}
 
 		$scope.setPanel = function(newPanel) {
+			console.log("new Panel : " + newPanel);
 			$scope.activePanel = newPanel;
 		};
 
@@ -37,7 +38,7 @@
 		};
   	});
 
-	app.controller('SearchController', function($scope, XrayMachine) {
+	app.controller('SearchController', function($scope, $rootScope, XrayMachine) {
 
 		$scope.searchList = [
         	{ field: 'Consultant', value: 'consultant'},
@@ -49,12 +50,19 @@
  			console.log("Selected: " + selected.value + " Value: " + value);
  			XrayMachine.getClientsForUser(selected, value).success(function(data){			
  				$scope.searchResults = data;
+ 				//$scope.searchResults = [{name:'test'},{name:'test1'}];
 			});
 		}	
 
+	    $scope.viewConsutlant = function(name){
+			$scope.setPanel('consultantView');
+			$rootScope.consultantName = name;
+		    console.log("$rootscope.consultantName : " + $rootScope.consultantName);		
+	}	
+
 	});
 
-	app.controller('ConsultantViewController', function($scope) {
+	app.controller('ConsultantViewController', function($scope, $rootScope) {
 		$scope.consultants = [
 		    {name: 'Henry Niu', mood: 'Happy', date: '01/2014'},
 		    {name: 'Henry Niu', mood: ' Indifferent', date: '02/2014'},
@@ -66,7 +74,7 @@
 		    {name: 'Matt Jones', mood: 'Happy', date: '04/2014'}
 		];
 
-		$scope.name = $location.search()['name'];
+		/*$scope.name = $location.search()['name'];*/
 	}); 
 
 })();
