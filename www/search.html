@@ -1,10 +1,7 @@
-<div ng-controller="SearchController">	
+<div ng-controller="SearchController">
 	<label>Search for: </label>
-	<select name="fieldDropDown" ng-model="selected">
-	<option value="consultant">Consultant</option>
-	<option value="mood">Mood</option>
-	<option value="client">Client</option>
-	</select><br>			
+    <select ng-model="selected" ng-options="s.field for s in searchList"></select> 	
+	<br>			
 	<label>Value: </label>
 	<input type="text" class="search-query" ng-model="value">
 	<button type="submit" ng-click="search(selected,value)" class="btn btn-default">Search</button>  	

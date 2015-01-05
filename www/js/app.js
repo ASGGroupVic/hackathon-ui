@@ -73,8 +73,15 @@
   	app.controller('SearchController', function($scope){
 
 	    $scope.search = function(selected, value){		
- 			console.log("Selected: " + selected + " Value: " + value);
+ 			console.log("Selected: " + selected.field + " Value: " + value);
 		};
+
+		 $scope.searchList = [
+        	{ field: 'Consultant'},
+        	{ field: 'Client'},
+        	{ field: 'Mood'},];
+
+    	$scope.selected = $scope.searchList[0];
 
 	    $scope.searchResults = [{
 	    		name :"Matt",
