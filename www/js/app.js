@@ -29,13 +29,6 @@
 		};
 	});
 
-	app.directive("searchResults", function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'search-results.html'
-		};
-	});
-
 	app.controller('NavigationController', function($scope, LoginHelper){
 	    // Determine if login page is required
 	    if(!LoginHelper.isLoggedIn()) {
@@ -72,29 +65,18 @@
 
   	app.controller('SearchController', function($scope, XrayMachine){
 
+  		$scope.searchList = [
+        	{ field: 'Consultant', value: 'consultant'},
+        	{ field: 'Client', value: 'client'},
+        	{ field: 'Mood', value: 'mood'}];
+        $scope.selected = $scope.searchList[0];
+
 	    $scope.search = function(selected, value){		
- 			console.log("Selected: " + selected.field + " Value: " + value);
- 			XrayMachine.getClientsForUser(selected, value).success(function(data){
+ 			console.log("Selected: " + selected.value + " Value: " + value);
+ 			$scope.searchResults = XrayMachine.getClientsForUser(selected, value).success(function(data){
  				console.log('Hooray!');
  				console.log(data);});
-		};
-
-		 $scope.searchList = [
-        	{ field: 'Consultant'},
-        	{ field: 'Client'},
-        	{ field: 'Mood'},];
-
-    	$scope.selected = $scope.searchList[0];
-
-	    $scope.searchResults = [{
-	    		name :"Matt",
-	    		client : "Telstra"
-		    },
-		    {
-		    	name : "Shae",
-	    		client : "ANZ"
-		    }];
-    
+		};    	
   	});
 
 	app.factory("LoginHelper", function(localStorageService){
