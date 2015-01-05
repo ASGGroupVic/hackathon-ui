@@ -1,17 +1,13 @@
-<form>
-	<div class="search">
-		<form>
-			<label>Search for: </label>
-			<select name="fieldDropDown">
-			<option value="consultant">Consultant</option>
-			<option value="mood">Mood</option>
-			<option value="client">Client</option>
-			</select><br>			
-			<label>Value: </label>
-			<input type="text" class="search-query">
-		</form>  					
-  		<button type="submit" class="btn">Search</button>  
-	</div>
-</form>
+<div ng-controller="SearchController">	
+	<label>Search for: </label>
+	<select name="fieldDropDown" ng-model="selected">
+	<option value="consultant">Consultant</option>
+	<option value="mood">Mood</option>
+	<option value="client">Client</option>
+	</select><br>			
+	<label>Value: </label>
+	<input type="text" class="search-query" ng-model="value">
+	<button type="submit" ng-click="search(selected,value)" class="btn btn-default">Search</button>  	
+</div>
 
 
