@@ -70,10 +70,13 @@
 		};
   	});
 
-  	app.controller('SearchController', function($scope){
+  	app.controller('SearchController', function($scope, XrayMachine){
 
 	    $scope.search = function(selected, value){		
  			console.log("Selected: " + selected.field + " Value: " + value);
+ 			XrayMachine.getClientsForUser(selected, value).success(function(data){
+ 				console.log('Hooray!');
+ 				console.log(data);});
 		};
 
 		 $scope.searchList = [
@@ -127,11 +130,12 @@
 			});
 		};
 
-		factory.getClientsForUser = function(email) {
+		factory.getClientsForUser = function(searchType, email) {
 			return $http({
 				method : 'GET',
-				url : 'v1/consultant/email/' + email + "/clients",
-				headers : headerObj
+				//eg: http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/david.carroll@smsmt.com/clients
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/'+ searchType +'/' + email + "/clients",
+				//headers : headerObj
 			});
 		};
   		
