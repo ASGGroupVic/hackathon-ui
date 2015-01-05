@@ -8,6 +8,13 @@
 		};
 	});
 
+	app.directive("updateMood", function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'update-mood.html'
+		};
+	});
+
 	app.controller('NavigationController', function($scope){
 	    // Default panel here
 	    $scope.activePanel = "login";
