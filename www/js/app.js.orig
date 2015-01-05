@@ -77,7 +77,20 @@
  			$scope.searchResults = XrayMachine.getClientsForUser(selected, value).success(function(data){
  				console.log('Hooray!');
  				console.log(data);});
+<<<<<<< HEAD
+		};
+
+	    $scope.searchResults = [{
+	    		name :"Matt",
+	    		client : "Telstra"
+		    },
+		    {
+		    	name : "Shae",
+	    		client : "ANZ"
+		    }];
+=======
 		};    	
+>>>>>>> 8d5be3e6825b3058ced4664abdd4d38a134ba3af
   	});
 
 	app.factory("LoginHelper", function(localStorageService){
