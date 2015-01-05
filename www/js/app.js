@@ -64,10 +64,20 @@
 		};
   	});
 
-  	app.controller('SearchController', function($scope, XrayMachine){
-	    $scope.searchResults = function(user) { 
-	    	return XrayMachine.getClientsForUser(user);
-	    }
+  	app.controller('SearchController', function($scope){
+
+	    $scope.search = function(selected, value){		
+ 			console.log("Selected: " + selected + " Value: " + value);
+		};
+
+	    $scope.searchResults = [{
+	    		name :"Matt",
+	    		client : "Telstra"
+		    },
+		    {
+		    	name : "Shae",
+	    		client : "ANZ"
+		    }];
     
   	});
 
