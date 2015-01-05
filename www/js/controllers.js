@@ -49,8 +49,8 @@
 	    $scope.search = function(selected, value){		
  			console.log("Selected: " + selected.value + " Value: " + value);
  			XrayMachine.getClientsForUser(selected, value).success(function(data){			
- 				//$scope.searchResults = data;
- 				$scope.searchResults = [{name:'test'},{name:'test1'}];
+ 				$scope.searchResults = data;
+ 				//$scope.searchResults = [{name:'test'},{name:'test1'}];
 			});
 		}	
 
