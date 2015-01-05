@@ -8,17 +8,17 @@
 		};
 	});
 
+<<<<<<< HEAD
 	app.directive("updateMood", function() {
 		return {
 			restrict: 'E',
 			templateUrl: 'update-mood.html'
-		};
-	});
-
+=======
 	app.directive("login", function() {
 		return {
 			restrict: 'E',
 			templateUrl: 'login.html'
+>>>>>>> 25a19371dd97bee428372f24d8ce2ece41930fe1
 		};
 	});
 
@@ -34,17 +34,6 @@
 	      return $scope.activePanel === panelName;
 	    };
     
-  	});
-
-  	app.controller('UpdateMoodController', function($scope){
-	    // Default panel here
-	    $scope.newUpdate = {};
-	    
-
-	    $scope.updateMood = function(){
-			var a = $scope.newUpdate.mood + ' ' + $scope.newUpdate.notes;
-			console.log(a);
-		};
   	});
   	
 })();

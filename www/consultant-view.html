@@ -1,0 +1,11 @@
+<h3>Consultant View</h3>
+<div ng-app ng-controller="ConsultantViewController">
+    <ul>
+        <li ng-repeat="consultant in consultants | filter: $name in consultants">
+        	{{consultant.name}}: {{consultant.mood}}: {{consultant.date}}
+        </li>
+        <li ng-if="consultants.length == 0">
+	      <strong>No results found...</strong>
+	    </li>
+    </ul>
+</div>
