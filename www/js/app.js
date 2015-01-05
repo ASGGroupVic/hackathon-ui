@@ -64,15 +64,10 @@
 		};
   	});
 
-  	app.controller('SearchController', function($scope){
-	    $scope.searchResults = [{
-	    		name :"Matt",
-	    		client : "Telstra"
-		    },
-		    {
-		    	name : "Shae",
-	    		client : "ANZ"
-		    }];
+  	app.controller('SearchController', function($scope, XrayMachine){
+	    $scope.searchResults = function(user) { 
+	    	return XrayMachine.getClientsForUser(user);
+	    }
     
   	});
 
@@ -91,7 +86,8 @@
 		factory.getClientsForUser = function(email) {
 			return $http({
 				method : 'GET',
-				url : 'v1/consultant/email/' + email + "/clients",
+				//eg: http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/david.carroll@smsmt.com/clients
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/' + email + "/clients",
 				headers : headerObj
 			});
 		};
