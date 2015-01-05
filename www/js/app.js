@@ -11,10 +11,10 @@
 	app.directive("login", function() {
 		return {
 			restrict: 'E',
-			templateUrl: '../login.html'
+			templateUrl: 'login.html'
 		};
 	});
-	
+
 	app.controller('NavigationController', function($scope){
 	    // Default panel here
 	    $scope.activePanel = "login";
