@@ -8,9 +8,16 @@
 		};
 	});
 
+	app.directive("searchResults", function() {
+		return {
+			restrict: 'E',
+			templateUrl: '../search-results.html'
+		};
+	});
+
 	app.controller('NavigationController', function($scope){
 	    // Default panel here
-	    $scope.activePanel = "login";
+	    $scope.activePanel = "updateMood";
 	    
 	    $scope.setPanel = function(newPanel) {
 	      $scope.activePanel = newPanel;
@@ -21,5 +28,5 @@
 	    };
     
   	});
-  	
+
 })();
