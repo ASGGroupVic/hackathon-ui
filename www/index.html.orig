@@ -14,8 +14,11 @@
 <body ng-controller="NavigationController">
 	<menu-bar></menu-bar>
 	<div class="container">
+<<<<<<< HEAD
 		<update-mood ng-show="isSet('updateMood')"></update-mood>
+=======
 		<login ng-show=isSet('login')></login>
+>>>>>>> 25a19371dd97bee428372f24d8ce2ece41930fe1
 	</div>
 	
 	<script src= "js/app.js"></script>
@@ -23,6 +26,5 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/ConsultantViewController.js"></script>
 </body>
 </html>
