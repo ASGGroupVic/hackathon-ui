@@ -28,12 +28,21 @@
 	app.controller('UpdateMoodController', function($scope, XrayMachine, LoginHelper){
 	    // Default panel here
 	    $scope.newUpdate = {};
+	    $scope.successNotify = false;
 	    
+	    $scope.closeNotfication = function() {
+	    	$scope.successNotify = false;
+	    };
 
 	    $scope.updateMood = function(){
 			var moodObject = { mood: $scope.newUpdate.mood, notes : $scope.newUpdate.notes};
-			var userId = LoginHelper.getUser();
-			XrayMachine.updateMood(userId, moodObject).success(function(){console.log('Hooray!');});
+			var email = LoginHelper.getUser();
+			XrayMachine.updateMood(email, moodObject).success(function(){
+				// Mood has been successfully sent to API
+				$scope.newUpdate.notes = null;
+				$scope.newUpdate.mood = null;
+				$scope.successNotify = true;
+			});
 		};
   	});
 
@@ -45,16 +54,16 @@
         	{ field: 'Mood', value: 'mood'}];
         $scope.selected = $scope.searchList[0];
 
-	    $scope.search = function(selected, value){		
+	    $scope.search = function(selected, value) {		
  			console.log("Selected: " + selected.value + " Value: " + value);
  			XrayMachine.getClientsForUser(selected, value).success(function(data){			
  				$scope.searchResults = data;
 			});
-		}	
+		};
 
 	});
 
-	app.controller('ConsultantViewController', function($scope) {
+	app.controller('ConsultantViewController', function($location, $scope) {
 		$scope.consultants = [
 		    {name: 'Henry Niu', mood: 'Happy', date: '01/2014'},
 		    {name: 'Henry Niu', mood: ' Indifferent', date: '02/2014'},
