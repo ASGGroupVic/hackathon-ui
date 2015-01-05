@@ -14,14 +14,18 @@
 <body ng-controller="NavigationController">
 	<menu-bar ng-hide="isSet('login')"></menu-bar>
 	<div class="container">
-	
-	<search-results ng-show="isSet('search')"></search-result>
+		<update-mood ng-show="isSet('updateMood')"></update-mood>
+		<login ng-show=isSet('login')></login>
+		<search ng-show="isSet('search')"></search>
+		<search-results ng-show="isSet('searchResult')"></search-result>
 	
 	</div>
+	
 	<script src= "js/app.js"></script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/ConsultantViewController.js"></script>
 </body>
 </html>

@@ -4,14 +4,35 @@
 	app.directive("menuBar", function() {
 		return {
 			restrict: 'E',
-			templateUrl: '../menu-bar.html'
+			templateUrl: 'menu-bar.html'
+		};
+	});
+
+	app.directive("updateMood", function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'update-mood.html'
+		};
+	});
+
+	app.directive("login", function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'login.html'
+		};
+	});
+
+	app.directive("search", function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'search.html'
 		};
 	});
 
 	app.directive("searchResults", function() {
 		return {
 			restrict: 'E',
-			templateUrl: '../search-results.html'
+			templateUrl: 'search-results.html'
 		};
 	});
 
@@ -27,6 +48,20 @@
 	      return $scope.activePanel === panelName;
 	    };
     
+	    $scope.login = function(){
+	      return $scope.setPanel('updateMood');
+	    };
+  	});
+
+  	app.controller('UpdateMoodController', function($scope){
+	    // Default panel here
+	    $scope.newUpdate = {};
+	    
+
+	    $scope.updateMood = function(){
+			var a = $scope.newUpdate.mood + ' ' + $scope.newUpdate.notes;
+			console.log(a);
+		};
   	});
 
   	app.controller('SearchController', function($scope){
@@ -44,21 +79,20 @@
   	app.factory("XrayMachine", function($http){
   		var factory = {};
 
-		factory.updateMood = function(user, mood) {
+		factory.updateMood = function(email, mood) {
 			return $http({
 				method : 'POST',
-				url : 'domain/user/' + user,
+				url : 'v1/consultant/email/' + user + "/mood",
 				headers : headerObj,
 				data : mood
 			});
 		};
 
-		factory.getClientsForUser = function(id) {
+		factory.getClientsForUser = function(email) {
 			return $http({
 				method : 'GET',
-				url : 'domain/getclientfunction/' + id,
-				headers : headerObj,
-				data : mood
+				url : 'v1/consultant/email/' + email + "/clients",
+				headers : headerObj
 			});
 		};
   		
