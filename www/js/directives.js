@@ -30,10 +30,4 @@
 		};
 	});
 
-	app.directive("searchResults", function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'search-results.html'
-		};
-	});
 })();

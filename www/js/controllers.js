@@ -36,20 +36,20 @@
 	    };
 	});
 
-	app.controller('SearchController', function($scope){
+	app.controller('SearchController', function($scope, XrayMachine){
 
-		$scope.search = function(selected, value){		
-			console.log("Selected: " + selected + " Value: " + value);
+		$scope.searchList = [
+        	{ field: 'Consultant', value: 'consultant'},
+        	{ field: 'Client', value: 'client'},
+        	{ field: 'Mood', value: 'mood'}];
+        $scope.selected = $scope.searchList[0];
+
+	    $scope.search = function(selected, value){		
+ 			console.log("Selected: " + selected.value + " Value: " + value);
+ 			$scope.searchResults = XrayMachine.getClientsForUser(selected, value).success(function(data){
+ 				console.log('Hooray!');
+ 				console.log(data);});
 		};
-
-		$scope.searchResults = [{
-			name :"Matt",
-			client : "Telstra"
-		},
-		{
-			name : "Shae",
-			client : "ANZ"
-		}];
 
 	});
 

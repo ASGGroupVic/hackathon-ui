@@ -35,11 +35,10 @@
 			});
 		};
 
-		factory.getClientsForUser = function(email) {
+		factory.getClientsForUser = function(searchType, email) {
 			return $http({
 				method : 'GET',
-				url : 'v1/consultant/email/' + email + "/clients",
-				headers : headerObj
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/'+ searchType.value +'/' + email + "/clients"
 			});
 		};
   		
