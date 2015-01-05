@@ -22,9 +22,23 @@
 		};
 	});
 
+	app.directive("search", function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'search.html'
+		};
+	});
+
+	app.directive("searchResults", function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'search-results.html'
+		};
+	});
+
 	app.controller('NavigationController', function($scope){
 	    // Default panel here
-	    $scope.activePanel = "login";
+	    $scope.activePanel = "updateMood";
 	    
 	    $scope.setPanel = function(newPanel) {
 	      $scope.activePanel = newPanel;
@@ -49,5 +63,41 @@
 			console.log(a);
 		};
   	});
+
+  	app.controller('SearchController', function($scope){
+	    $scope.searchResults = [{
+	    		name :"Matt",
+	    		client : "Telstra"
+		    },
+		    {
+		    	name : "Shae",
+	    		client : "ANZ"
+		    }];
+    
+  	});
+
+  	app.factory("XrayMachine", function($http){
+  		var factory = {};
+
+		factory.updateMood = function(email, mood) {
+			return $http({
+				method : 'POST',
+				url : 'v1/consultant/email/' + user + "/mood",
+				headers : headerObj,
+				data : mood
+			});
+		};
+
+		factory.getClientsForUser = function(email) {
+			return $http({
+				method : 'GET',
+				url : 'v1/consultant/email/' + email + "/clients",
+				headers : headerObj
+			});
+		};
+  		
+  		return factory;
   	
+  	});
+
 })();
