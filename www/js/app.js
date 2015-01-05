@@ -59,14 +59,15 @@
 	    };
   	});
 
-  	app.controller('UpdateMoodController', function($scope){
+  	app.controller('UpdateMoodController', function($scope, XrayMachine, LoginHelper){
 	    // Default panel here
 	    $scope.newUpdate = {};
 	    
 
 	    $scope.updateMood = function(){
-			var a = $scope.newUpdate.mood + ' ' + $scope.newUpdate.notes;
-			console.log(a);
+			var moodObject = { mood: $scope.newUpdate.mood, notes : $scope.newUpdate.notes};
+			var userId = LoginHelper.getUser();
+			XrayMachine.updateMood(userId, moodObject).success(function(){console.log('Hooray!');});
 		};
   	});
 
@@ -87,7 +88,6 @@
 		    	name : "Shae",
 	    		client : "ANZ"
 		    }];
-    
   	});
 
 	app.factory("LoginHelper", function(localStorageService){
@@ -117,8 +117,8 @@
 		factory.updateMood = function(email, mood) {
 			return $http({
 				method : 'POST',
-				url : 'v1/consultant/email/' + email + "/mood",
-				headers : headerObj,
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/' + email + "/mood",
+				//headers : headerObj,
 				data : mood
 			});
 		};
