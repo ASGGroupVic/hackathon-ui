@@ -65,6 +65,11 @@
   	});
 
   	app.controller('SearchController', function($scope){
+
+	    $scope.search = function(selected, value){		
+ 			console.log("Selected: " + selected + " Value: " + value);
+		};
+
 	    $scope.searchResults = [{
 	    		name :"Matt",
 	    		client : "Telstra"
