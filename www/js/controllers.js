@@ -25,16 +25,17 @@
 		};
 	});
 
-	app.controller('UpdateMoodController', function($scope){
+	app.controller('UpdateMoodController', function($scope, XrayMachine, LoginHelper){
 	    // Default panel here
 	    $scope.newUpdate = {};
 	    
 
 	    $scope.updateMood = function(){
-	    	var a = $scope.newUpdate.mood + ' ' + $scope.newUpdate.notes;
-	    	console.log(a);
-	    };
-	});
+			var moodObject = { mood: $scope.newUpdate.mood, notes : $scope.newUpdate.notes};
+			var userId = LoginHelper.getUser();
+			XrayMachine.updateMood(userId, moodObject).success(function(){console.log('Hooray!');});
+		};
+  	});
 
 	app.controller('SearchController', function($scope, XrayMachine) {
 

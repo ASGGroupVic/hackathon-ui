@@ -29,8 +29,7 @@
 		factory.updateMood = function(email, mood) {
 			return $http({
 				method : 'POST',
-				url : 'v1/consultant/email/' + email + "/mood",
-				headers : headerObj,
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/' + email + "/mood",
 				data : mood
 			});
 		};
