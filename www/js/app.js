@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module("clientXray", []);
+	var app = angular.module("clientXray", ['LocalStorageModule']);
 
 	app.directive("menuBar", function() {
 		return {
@@ -36,20 +36,26 @@
 		};
 	});
 
-	app.controller('NavigationController', function($scope){
-	    // Default panel here
-	    $scope.activePanel = "updateMood";
+	app.controller('NavigationController', function($scope, LoginHelper){
+	    // Determine if login page is required
+	    if(!LoginHelper.isLoggedIn()) {
+	    	$scope.activePanel = "login";
+	    } else {
+	    	$scope.activePanel = "updateMood";
+	    }
 	    
 	    $scope.setPanel = function(newPanel) {
-	      $scope.activePanel = newPanel;
+	      	$scope.activePanel = newPanel;
 	    };
 	    
 	    $scope.isSet = function(panelName){
-	      return $scope.activePanel === panelName;
+	      	return $scope.activePanel === panelName;
 	    };
     
 	    $scope.login = function(){
-	      return $scope.setPanel('updateMood');
+	    	// Add Email to local storage
+	    	LoginHelper.setUser($scope.email);
+	      	$scope.setPanel('updateMood');
 	    };
   	});
 
@@ -84,13 +90,34 @@
     
   	});
 
+	app.factory("LoginHelper", function(localStorageService){
+  		var factory = {};
+  		var currentUser = localStorageService.get('Email');
+
+		factory.isLoggedIn = function() {
+			return currentUser != null;
+		};
+
+		factory.setUser = function(email) {
+			localStorageService.set('Email', email);
+			currentUser = email;
+		};
+
+		factory.getUser = function() {
+			return currentUser;
+		}
+  		
+  		return factory;
+  	
+  	});
+
   	app.factory("XrayMachine", function($http){
   		var factory = {};
 
 		factory.updateMood = function(email, mood) {
 			return $http({
 				method : 'POST',
-				url : 'v1/consultant/email/' + user + "/mood",
+				url : 'v1/consultant/email/' + email + "/mood",
 				headers : headerObj,
 				data : mood
 			});
