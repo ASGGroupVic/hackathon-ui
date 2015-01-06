@@ -59,7 +59,7 @@
 		};
   	});
 
-	app.controller('SearchController', function($scope, XrayMachine, consultantData) {
+	app.controller('SearchController', function($scope, XrayMachine,data) {
 
 		$scope.searchList = [
         	{ field: 'Consultant', value: 'consultant'},
@@ -75,25 +75,47 @@
 			});
 		};
 
-	    $scope.viewConsutlant = function(name){
-			var consultant = XrayMachine.getConsultant(name);
-			consultantData.setConsultant(consultant);
+	    $scope.viewConsutlant = function(email){
+			 XrayMachine.getConsultant(email).success(function(consultantData){
+			 	console.log('consultantData : ' + consultantData);
+				data.setConsultant(consultantData);
+			});
 			$scope.setPanel('consultantView');
+		};	
+
+	    $scope.viewClient = function(name){
+			var client = XrayMachine.getClient(name);
+			data.setClient(client);
+			$scope.setPanel('consultantView');//To do go to client view
 		};	
 
 	});
 
-	app.controller('ConsultantViewController', function($scope, consultantData) {
+	app.controller('ConsultantViewController', function($scope, data) {
 
 		$scope.$watch(
 			function () { 
-				return consultantData.getConsultant(); 
+				return data.getConsultant(); 
+			},
+			function (newValue) {
+        		if (newValue)
+        		{
+        			console.log('newValue : ' + newValue); 
+        			$scope.consultants = newValue;
+        		}
+    		}
+    	);
+
+		$scope.$watch(
+			function () { 
+				return data.getClient(); 
 			},
 			function (newValue) {
         		if (newValue) 
-        			$scope.consultants = newValue;
+        			$scope.client = client;
     		}
     	);
+
 	}); 
 
 })();

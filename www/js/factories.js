@@ -37,24 +37,32 @@
 		factory.getClientsForUser = function(email) {
 			return $http({
 				method : 'GET',
-				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/' + email + "/clients"
+				//url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/' + email + "/clients"
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/'+ email
 			});
 		};
   		
-		factory.getConsultant = function(name) {
-			/*return $http({
+		factory.getConsultant = function(email) {
+			console.log('search consultant by email : ' + email);
+			return $http({
 				method : 'GET',
-				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/'+ name
-			});*/
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/'+ email
+			});
 
-  			return [];
+		};
+
+		factory.getClient = function(clientCode) {
+			return $http({
+				method : 'GET',
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/client//' + clientCode
+			});
 		};
 
   		return factory;
   	
   	});
 
-	app.factory("consultantData", function(){
+	app.factory("data", function(){
 		var data = {
 			consultant : []
 		};
@@ -66,6 +74,14 @@
 
 			setConsultant: function(consultant) {
 				data.consultant = consultant;
+			},
+
+			getClient: function() {
+				return data.client;
+			},
+
+			setClient: function(client) {
+				data.client = client;
 			}
 		};
 

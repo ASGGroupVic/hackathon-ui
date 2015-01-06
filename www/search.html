@@ -21,8 +21,10 @@
 
 	<div class="panel panel-default" ng-repeat="item in searchResults">
 		<div class="panel-body">
-			{{item.name}} <br/>
+			<a href="" ng-click="viewConsutlant(item.email)">{{item.firstName}} {{item.lastName}}<br/>
+
 			{{item.client}}
 		</div>
 	</div>
+
 </div>
