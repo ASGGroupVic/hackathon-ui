@@ -12,6 +12,8 @@
 
 		$scope.setPanel = function(newPanel) {
 			console.log("new Panel : " + newPanel);
+			// close menu
+			$(".navbar-collapse").collapse('hide');
 			$scope.activePanel = newPanel;
 		};
 
