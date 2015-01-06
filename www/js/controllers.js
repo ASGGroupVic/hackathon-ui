@@ -97,7 +97,10 @@
 	    $scope.search = function(selected, value){		
  			console.log("Selected: " + selected.value + " Value: " + value);
  			$scope.searchType = selected.value;
- 			XrayMachine.getClientsForUser(value).success(function(data){			
+ 			/*XrayMachine.getClientsForUser(value).success(function(data){			
+ 				$scope.searchResults = data;
+			});*/
+ 			XrayMachine.getConsultant(value).success(function(data){			
  				$scope.searchResults = data;
 			});
 		};
@@ -105,7 +108,7 @@
 	    $scope.viewConsutlant = function(email){
 			 XrayMachine.getConsultantMood(email).success(function(consultantData){
 			 	console.log('consultantData : ' + consultantData);
-				data.setConsultant(consultantData);
+				data.setConsultantMood(consultantData);
 			});
 			$scope.setPanel('consultantView');
 		};	
