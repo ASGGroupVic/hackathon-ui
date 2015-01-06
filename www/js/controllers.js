@@ -103,7 +103,7 @@
 		};
 
 	    $scope.viewConsutlant = function(email){
-			 XrayMachine.getConsultant(email).success(function(consultantData){
+			 XrayMachine.getConsultantMood(email).success(function(consultantData){
 			 	console.log('consultantData : ' + consultantData);
 				data.setConsultant(consultantData);
 			});
@@ -134,13 +134,13 @@
 
 		$scope.$watch(
 			function () { 
-				return data.getConsultant(); 
+				return data.getConsultantMood(); 
 			},
 			function (newValue) {
         		if (newValue)
         		{
         			console.log('newValue : ' + newValue); 
-        			$scope.consultants = newValue;
+        			$scope.consultantMood = newValue;
         		}
     		}
     	);
