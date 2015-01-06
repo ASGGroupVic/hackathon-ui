@@ -54,6 +54,14 @@
 			});
 		};
 
+		factory.getConsultantMood = function(email) {
+			console.log('search consultant mood by email : ' + email);
+			return $http({
+				method : 'GET',
+				url : host + 'consultant/'+ email + "/mood"
+			});
+		};
+
 		factory.getClient = function(clientCode) {
 			return $http({
 				method : 'GET',
@@ -67,16 +75,16 @@
 
 	app.factory("data", function(){
 		var data = {
-			consultant : []
+			consultantMood : []
 		};
 
 		return {
-			getConsultant: function() {
-				return data.consultant;
+			getConsultantMood: function() {
+				return data.consultantMood;
 			},
 
-			setConsultant: function(consultant) {
-				data.consultant = consultant;
+			setConsultantMood: function(consultantMood) {
+				data.consultantMood = consultantMood;
 			},
 
 			getClient: function() {
