@@ -1,13 +1,9 @@
-<h3>Consultant View</h3>
 <div ng-controller="ConsultantViewController">
+	<h3>{{consultant.firstName}} {{consultant.lastName}}</h3>
     <ul>
         <li ng-repeat="mood in consultantMood">
-        	{{mood.month}}/{{mood.year}} count: {{mood.count}}
-
-        </li>
-        <li ng-if="consultants.length == 0">
-	      <strong>No results found...</strong>
-	    </li>
+        	{{mood.month}}/{{mood.year}} {{mood.mood}}
+        </li>       
     </ul>
     <div class="graphContainer">
     	<p id="chart"></p>

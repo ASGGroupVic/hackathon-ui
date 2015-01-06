@@ -104,37 +104,51 @@
 				});
  			}
  			else if(selected.value === "client"){
- 				XrayMachine.searchConsultant(value).success(function(data){			
+ 				console.log('search for client');
+ 				XrayMachine.searchClient(value).success(function(data){			
  					$scope.searchResults = data;
 				}); 				
  			}		
 		};
 
 	    $scope.viewConsutlant = function(email){
-			 XrayMachine.getConsultantMood(email).success(function(consultantData){
+			XrayMachine.getConsultantMood(email).success(function(consultantData){
 			 	console.log('consultantData : ' + consultantData);
 				data.setConsultantMood(consultantData);
+			});
+
+			XrayMachine.getConsultant(email).success(function(consultantData){			 	
+				data.setConsultant(consultantData);
 			});
 			$scope.setPanel('consultantView');
 		};	
 
-	    $scope.viewClient = function(name){
-			var client = XrayMachine.getClient(name);
-			data.setClient(client);
-			$scope.setPanel('consultantView');//To do go to client view
+	    $scope.viewClient = function(clientCode){
+			XrayMachine.getClient(clientCode).success(function(clientData){
+				data.setClient(clientData);
+			});
+
+			XrayMachine.getClientMood(clientCode).success(function(clientMoodData){
+				data.setClientMood(clientMoodData);
+			});
+
+			XrayMachine.getClientConsultants(clientCode).success(function(clientConsultantsData){
+				data.setClientConsultants(clientConsultantsData);
+			});
+			$scope.setPanel('clientView');//To do go to client view
 		};
 
 		$scope.isViewForClients = function() {
 			return $scope.searchType === 'client';
-		}	
+		};
 
 		$scope.isViewForMood = function() {
 			return $scope.searchType === 'mood';
-		}	
+		};	
 
 		$scope.isViewForConsultant = function() {
 			return $scope.searchType === 'consultant';
-		}	
+		};	
 
 	});
 
@@ -154,16 +168,55 @@
     		}
     	);
 
+    	$scope.$watch(
+			function () { 
+				return data.getConsultant(); 
+			},
+			function (newValue) {
+        		if (newValue)
+        		{
+        			console.log('newValue : ' + newValue); 
+        			$scope.consultant = newValue;
+        		}
+    		}
+    	);
+
 		$scope.$watch(
 			function () { 
 				return data.getClient(); 
 			},
 			function (newValue) {
         		if (newValue) 
-        			$scope.client = client;
+        			$scope.client = newValue;
     		}
     	);
 
-	}); 
+	});
 
+	app.controller('ClientViewController', function($scope, data) {
+
+		$scope.$watch(
+			function () {
+				return data.getClientMood();
+			},
+			function (newValue) {
+				if (newValue)
+				{
+					console.log('newValue : ' + newValue);
+					$scope.clientMood = newValue;
+				}
+			}
+		);
+
+		$scope.$watch(
+			function () {
+				return data.getClient();
+			},
+			function (newValue) {
+				if (newValue)
+					$scope.client = newValue;
+			}
+		);
+
+	});
 })();
