@@ -91,7 +91,7 @@
 		};
   	});
 
-	app.controller('SearchController', function($scope, XrayMachine, data) {
+	app.controller('SearchController', function($scope, XrayMachine, data, MoodValues) {
 
 		$scope.searchType = '';
 		$scope.searchList = [
@@ -140,8 +140,17 @@
 
 			XrayMachine.getClientConsultants(clientCode).success(function(clientConsultantsData){
 				data.setClientConsultants(clientConsultantsData);
-			});
-			$scope.setPanel('clientView');//To do go to client view
+			});				
+
+    		var totalCount = 0;
+			var moodCount = 0;
+				for(var mood in data.getClientMood()){
+					console.log("Mood: " + mood.count + " " + mood['mood.name']);
+					totalCount += mood.count;
+					moodCount += MoodValues.getMoodValue((mood['mood.name']));
+				}
+			data.setOverallMood = moodCount/totalCount;
+			$scope.setPanel('clientView');
 		};
 
 		$scope.isViewForClients = function() {
@@ -209,11 +218,24 @@
 				if (newValue)
 				{
 					console.log('newValue : ' + newValue);
-					$scope.clientMood = newValue;
+					$scope.clientMood = newValue;					
 				}
 			}
 		);
 
+		$scope.$watch(
+			function () {
+				return data.getOverallMood();
+			},
+			function (newValue) {
+				if (newValue)
+				{
+					console.log('newValue : ' + newValue);
+					$scope.overallClientMood = newValue;					
+				}
+			}
+		);
+		
 		$scope.$watch(
 			function () {
 				return data.getClientConsultants();
@@ -235,8 +257,7 @@
 				if (newValue)
 					$scope.client = newValue;
 			}
-		);
-
+		);		
 
 	    $scope.viewConsultant = function(email){
 			XrayMachine.getConsultantMood(email).success(function(consultantData){
@@ -247,8 +268,8 @@
 			XrayMachine.getConsultant(email).success(function(consultantData){			 	
 				data.setConsultant(consultantData);
 			});
-			$scope.setPanel('consultantView');
-		};	
 
+			$scope.setPanel('consultantView');
+		};			
 	});
 })();
