@@ -1,13 +1,14 @@
 <div ng-controller="ClientViewController">
-	<h3>{{client[0].name}} {{client[0].contact}}</h3>
+	<h3>{{client[0].name}} </h3>
+	{{client[0].contact}}
     <ul  class="list-inline">
         <li ng-repeat="mood in clientMood">
-            {{mood.mood.name}} count: {{mood.count}}
+            {{mood['mood.name']}} count: {{mood.count}}
         </li>        
     </ul>
       <ul>
         <li ng-repeat="consultant in clientConsultants">
-            {{consultant.firstName}} {{consultant.lastName}}
+            {{consultant.firstName}} {{consultant.lastName}} {{consultant.engagementName}}
         </li>        
     </ul>
 </div>
