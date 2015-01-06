@@ -1,5 +1,5 @@
 <div ng-controller="ConsultantViewController">
-	<h3>{{consultant.firstName}} {{consultant.lastName}}</h3>
+	<h3>{{consultant[0].firstName}} {{consultant[0].lastName}}</h3>
     <ul>
         <li ng-repeat="mood in consultantMood">
         	{{mood.month}}/{{mood.year}} {{mood.mood}}
