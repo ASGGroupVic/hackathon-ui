@@ -41,11 +41,13 @@
 			});
 		};
   		
-		factory.getConsultantView = function(name) {
-			return $http({
+		factory.getConsultant = function(name) {
+			/*return $http({
 				method : 'GET',
 				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/'+ name
-			});
+			});*/
+
+  			return [];
 		};
 
   		return factory;
