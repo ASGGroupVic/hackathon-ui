@@ -199,7 +199,7 @@
 
 	});
 
-	app.controller('ClientViewController', function($scope, data) {
+	app.controller('ClientViewController', function($scope, data, XrayMachine) {
 
 		$scope.$watch(
 			function () {
@@ -236,6 +236,19 @@
 					$scope.client = newValue;
 			}
 		);
+
+
+	    $scope.viewConsultant = function(email){
+			XrayMachine.getConsultantMood(email).success(function(consultantData){
+			 	console.log('consultantData : ' + consultantData);
+				data.setConsultantMood(consultantData);
+			});
+
+			XrayMachine.getConsultant(email).success(function(consultantData){			 	
+				data.setConsultant(consultantData);
+			});
+			$scope.setPanel('consultantView');
+		};	
 
 	});
 })();

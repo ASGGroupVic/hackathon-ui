@@ -1,6 +1,6 @@
 <div ng-controller="ClientViewController">
 	<h3>{{client[0].name}} </h3>
-	{{client[0].contact}}
+	<b>Primary Contact: <b>{{client[0].contact}}
     <ul  class="list-inline">
         <li ng-repeat="mood in clientMood">
             {{mood['mood.name']}} count: {{mood.count}}
@@ -8,7 +8,7 @@
     </ul>
       <ul>
         <li ng-repeat="consultant in clientConsultants">
-            {{consultant.firstName}} {{consultant.lastName}} {{consultant.engagementName}}
+            <a href="" ng-click="viewConsultant(consultant.email)">{{consultant.firstname}} {{consultant.lastName}} - {{consultant.engagementName}}</a><br/> 
         </li>        
     </ul>
 </div>
