@@ -210,6 +210,19 @@
 
 		$scope.$watch(
 			function () {
+				return data.getClientConsultants();
+			},
+			function (newValue) {
+				if (newValue)
+				{
+					console.log('newValue : ' + newValue);
+					$scope.clientConsultants = newValue;
+				}
+			}
+		);
+
+		$scope.$watch(
+			function () {
 				return data.getClient();
 			},
 			function (newValue) {
