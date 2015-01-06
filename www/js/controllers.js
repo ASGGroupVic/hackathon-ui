@@ -113,7 +113,7 @@
 	    $scope.viewConsutlant = function(email){
 			 XrayMachine.getConsultantMood(email).success(function(consultantData){
 			 	console.log('consultantData : ' + consultantData);
-				data.setConsultant(consultantData);
+				data.setConsultantMood(consultantData);
 			});
 			$scope.setPanel('consultantView');
 		};	
