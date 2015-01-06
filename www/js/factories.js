@@ -51,10 +51,14 @@
 			return $http({
 				method : 'GET',
 				url : host + 'consultant/'+ email
+			});
+		};
+
 		factory.getClient = function(clientCode) {
 			return $http({
 				method : 'GET',
-				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/client//' + clientCode
+				url : host + 'client/' + clientCode
+			});
 		};
 
   		return factory;
