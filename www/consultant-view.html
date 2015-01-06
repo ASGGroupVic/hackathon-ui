@@ -1,9 +1,8 @@
 <h3>Consultant View</h3>
 <div ng-controller="ConsultantViewController">
-	There are total {{consultants.length}} entries for Consultant.
     <ul>
-        <li ng-repeat="consultant in consultants">
-        	{{consultant.firstName}}: {{consultant.lastName}}: {{consultant.email}}
+        <li ng-repeat="mood in consultantMood">
+        	{{mood.month}}/{{mood.year}} count: {{mood.count}}
 
         </li>
         <li ng-if="consultants.length == 0">
