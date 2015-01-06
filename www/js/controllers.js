@@ -71,7 +71,17 @@
 	});
 
 	app.controller('ConsultantViewController', function($scope, consultantData) {
-		$scope.$watch(
+
+		$scope.name = $location.search()['name'];
+
+		$scope.search = function(){		
+ 			console.log("Consultant Name: " + name);
+ 			consultantData.getConsultantView(name).success(function(data){			
+ 				$scope.moods = data;
+			});
+		}	
+
+		/*	$scope.$watch(
 			function () { 
 				return consultantData.getConsultant(); 
 			},
@@ -79,7 +89,7 @@
         		if (newValue) 
         			$scope.consultants = newValue;
     		}
-    	);
+    	);	*/
 	}); 
 
 })();
