@@ -118,7 +118,8 @@
 			consultantMood : [],
 			client : [],
 			clientMood : [],
-			clientConsultants : []
+			clientConsultants : [],
+			consultant : []
 		};
 
 		return {
@@ -129,6 +130,15 @@
 			setConsultantMood: function(consultantMood) {
 				data.consultantMood = consultantMood;
 			},
+
+			getConsultant: function() {
+				return data.consultant;
+			},
+
+			setConsultant: function(consultant) {
+				data.consultant = consultant;
+			},
+
 
 			getClient: function() {
 				return data.client;
