@@ -32,3 +32,9 @@ input[type="radio"]:checked + img{
 .no-margin {
 	margin: 0;
 }
+
+.logoimg{
+	margin: -1em;
+	max-height: 50px;
+	padding-right: 1em;
+}
