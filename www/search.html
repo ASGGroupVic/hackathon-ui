@@ -1,16 +1,27 @@
 <div ng-controller="SearchController">
 	<div class"panel panel-default">
-		<label>Search for: </label>
-    	<select ng-model="selected" ng-options="s.field for s in searchList"></select> 	
-		<br>			
-		<label>Value: </label>
-		<input type="text" class="search-query" ng-model="value">
-		<button type="submit" ng-click="search(selected,value)" class="btn btn-default">Search</button>  	
+		<div class="form-group">
+		    <label for="selected">What are you searching for?</label>
+		    <div class="span12">
+		      	<select name="selected" class="form-control" ng-model="selected" ng-options="s.field for s in searchList"></select>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label for="value">Value</label>
+		    <div class="span12">
+			    <input name="value" type="text" class="form-control search-query" ng-model="value">
+		    </div>
+		</div> 
+		<div class="form-group">
+		    <div class="span12">
+				<button type="submit" ng-click="search(selected,value)" class="btn btn-default">Search</button>
+		    </div>
+		</div>  	
 	</div>
 
 	<div class="panel panel-default" ng-repeat="item in searchResults">
 		<div class="panel-body">
-			<a href="" ng-click="viewConsutlant(item.name)">{{item.name}} <br/>
+			{{item.name}} <br/>
 			{{item.client}}
 		</div>
 	</div>
