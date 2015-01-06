@@ -42,14 +42,12 @@
         <tr>
           <th>Date</th>
           <th>Mood</th>
-          <th>Observations</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="mood in moodHistory">
-          <td>{{mood.month + '/' + mood.year}}</td>
+          <td>{{mood.day + '/' + mood.month + '/' + mood.year}}</td>
           <td>{{mood.mood}}</td>
-          <td class="truncate">fndsjakbfkldsamjfndasklnfjkdasbfjklnadis</td>
         </tr>
       </tbody>
     </table>  
