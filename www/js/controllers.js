@@ -24,12 +24,12 @@
 		$scope.login = function(){
 			// Add Email to local storage
 			LoginHelper.setUser($scope.email);
-			$scope.userName = LoginHelper.getUser(); 
 			$scope.activePanel = 'updateMood';
 		};
 
 		$scope.logout = function() {
 			LoginHelper.logout();
+			$(".navbar-collapse").collapse('hide');
 			$scope.activePanel = 'login';
 		};
 	});
@@ -38,8 +38,9 @@
 	    // Default panel here
 	    $scope.newUpdate = {};
 	    $scope.successNotify = false;
-	    
-	    XrayMachine.getClientsForUser(LoginHelper.getUser()).success(function(data){			
+
+ 		var updateClientsForUser = function() {
+ 			XrayMachine.getClientsForUser(LoginHelper.getUser()).success(function(data){			
  				$scope.clientsForUser = data;
  				if (data[0])
  				{
@@ -49,7 +50,12 @@
  				{
  					$scope.newUpdate.client = 'bench';
  				}
- 		});
+ 			});
+ 		};
+
+ 		// Update clients for this user and create callback function for each login thereafter
+ 		updateClientsForUser();
+ 		LoginHelper.attachLoginCallback(updateClientsForUser);
 
 	    $scope.closeNotfication = function() {
 	    	$scope.successNotify = false;
@@ -91,15 +97,18 @@
 	    $scope.search = function(selected, value){		
  			console.log("Selected: " + selected.value + " Value: " + value);
  			$scope.searchType = selected.value;
- 			XrayMachine.getClientsForUser(value).success(function(data){			
+ 			/*XrayMachine.getClientsForUser(value).success(function(data){			
+ 				$scope.searchResults = data;
+			});*/
+ 			XrayMachine.getConsultant(value).success(function(data){			
  				$scope.searchResults = data;
 			});
 		};
 
 	    $scope.viewConsutlant = function(email){
-			 XrayMachine.getConsultant(email).success(function(consultantData){
+			 XrayMachine.getConsultantMood(email).success(function(consultantData){
 			 	console.log('consultantData : ' + consultantData);
-				data.setConsultant(consultantData);
+				data.setConsultantMood(consultantData);
 			});
 			$scope.setPanel('consultantView');
 		};	
@@ -128,13 +137,13 @@
 
 		$scope.$watch(
 			function () { 
-				return data.getConsultant(); 
+				return data.getConsultantMood(); 
 			},
 			function (newValue) {
         		if (newValue)
         		{
         			console.log('newValue : ' + newValue); 
-        			$scope.consultants = newValue;
+        			$scope.consultantMood = newValue;
         		}
     		}
     	);

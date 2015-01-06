@@ -5,6 +5,7 @@
 	app.factory("LoginHelper", function(localStorageService){
   		var factory = {};
   		var currentUser = localStorageService.get('Email');
+  		var loginHandler = null;
 
 		factory.isLoggedIn = function() {
 			return currentUser !== null;
@@ -13,6 +14,9 @@
 		factory.setUser = function(email) {
 			localStorageService.set('Email', email);
 			currentUser = email;
+			if(loginHandler !== null) {
+				loginHandler();
+			} 
 		};
 
 		factory.getUser = function() {
@@ -20,8 +24,13 @@
 		};
 
 		factory.logout = function() {
+			currentUser = null;
 			localStorageService.remove('Email');
-		}
+		};
+
+		factory.attachLoginCallback = function(callback) {
+			loginHandler = callback;
+		};
   		
   		return factory;
   	
@@ -54,6 +63,14 @@
 			});
 		};
 
+		factory.getConsultantMood = function(email) {
+			console.log('search consultant mood by email : ' + email);
+			return $http({
+				method : 'GET',
+				url : host + 'consultant/'+ email + "/mood"
+			});
+		};
+
 		factory.getClient = function(clientCode) {
 			return $http({
 				method : 'GET',
@@ -67,16 +84,16 @@
 
 	app.factory("data", function(){
 		var data = {
-			consultant : []
+			consultantMood : []
 		};
 
 		return {
-			getConsultant: function() {
-				return data.consultant;
+			getConsultantMood: function() {
+				return data.consultantMood;
 			},
 
-			setConsultant: function(consultant) {
-				data.consultant = consultant;
+			setConsultantMood: function(consultantMood) {
+				data.consultantMood = consultantMood;
 			},
 
 			getClient: function() {
