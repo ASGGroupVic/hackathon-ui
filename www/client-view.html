@@ -1,11 +1,13 @@
-<h3>Client View</h3>
 <div ng-controller="ClientViewController">
-    <ul>
+	<h3>{{client[0].name}} {{client[0].contact}}</h3>
+    <ul  class="list-inline">
         <li ng-repeat="mood in clientMood">
-            count: {{mood.count}}
-        </li>
-        <li ng-if="clients.length == 0">
-            <strong>No results found...</strong>
-        </li>
+            {{mood.mood.name}} count: {{mood.count}}
+        </li>        
+    </ul>
+      <ul>
+        <li ng-repeat="consultant in clientConsultants">
+            {{consultant.firstName}} {{consultant.lastName}}
+        </li>        
     </ul>
 </div>
