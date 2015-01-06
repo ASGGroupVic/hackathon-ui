@@ -159,7 +159,7 @@
 				return data.getConsultantMood(); 
 			},
 			function (newValue) {
-        		if (newValue && typeof newValue != 'undefined')
+        		if (newValue && newValue != '')
         		{
         			console.log('newValue : ' + newValue);
         			$scope.consultantMood = newValue;
