@@ -21,8 +21,7 @@
 
 		$scope.login = function(){
 			// Add Email to local storage
-			LoginHelper.setUser($scope.email);
-			$scope.setPanel('updateMood');
+			LoginHelper.setUser($scope.email); $scope.setPanel('updateMood');
 		};
 	});
 
@@ -30,9 +29,21 @@
 	    // Default panel here
 	    $scope.newUpdate = {};
 	    
+	    XrayMachine.getClientsForUser(LoginHelper.getUser()).success(function(data){			
+ 				$scope.clientsForUser = data;
+ 				if (data[0])
+ 				{
+ 					$scope.newUpdate.client = data[0].clientCode;
+ 				}
+ 				else
+ 				{
+ 					$scope.newUpdate.client = 'bench';
+ 				}
+ 		});
+
 
 	    $scope.updateMood = function(){
-			var moodObject = { mood: $scope.newUpdate.mood, notes : $scope.newUpdate.notes};
+			var moodObject = { mood: $scope.newUpdate.mood, notes : $scope.newUpdate.notes, client : $scope.newUpdate.client };
 			var userId = LoginHelper.getUser();
 			XrayMachine.updateMood(userId, moodObject).success(function(){console.log('Hooray!');});
 		};

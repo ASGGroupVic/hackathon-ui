@@ -13,9 +13,9 @@ body{
 }
 
 .emotIcon{
-	max-width: 2em;
-	min-width: 2em;
-	border-radius: 1em;
+	max-width: 3em;
+	min-width: 3em;
+	border-radius: 1.5em;
 }
 
 input[type="radio"]:checked + img{

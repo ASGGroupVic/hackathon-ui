@@ -34,10 +34,10 @@
 			});
 		};
 
-		factory.getClientsForUser = function(searchType, email) {
+		factory.getClientsForUser = function(email) {
 			return $http({
 				method : 'GET',
-				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/'+ searchType.value +'/' + email + "/clients"
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/' + email + "/clients"
 			});
 		};
   		
