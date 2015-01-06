@@ -116,6 +116,10 @@
 			 	console.log('consultantData : ' + consultantData);
 				data.setConsultantMood(consultantData);
 			});
+
+			XrayMachine.getConsultant(email).success(function(consultantData){			 	
+				data.setConsultant(consultantData);
+			});
 			$scope.setPanel('consultantView');
 		};	
 
@@ -159,6 +163,19 @@
         		{
         			console.log('newValue : ' + newValue); 
         			$scope.consultantMood = newValue;
+        		}
+    		}
+    	);
+
+    	$scope.$watch(
+			function () { 
+				return data.getConsultant(); 
+			},
+			function (newValue) {
+        		if (newValue)
+        		{
+        			console.log('newValue : ' + newValue); 
+        			$scope.consultant = newValue;
         		}
     		}
     	);
