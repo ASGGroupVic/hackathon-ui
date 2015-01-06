@@ -15,8 +15,10 @@
 	<menu-bar ng-hide="isSet('login')"></menu-bar>
 	<div class="container">
 		<update-mood ng-show="isSet('updateMood')"></update-mood>
-		<login ng-show="isSet('login')"></login>
-		<search ng-show="isSet('search')"></search>	
+		<login ng-show=isSet('login')></login>
+		<search ng-show="isSet('search')"></search>
+		<consultant-view ng-show="isSet('consultantView')"></consultant-view>
+	
 	</div>
 	
 	<script src= "js/app.js"></script>

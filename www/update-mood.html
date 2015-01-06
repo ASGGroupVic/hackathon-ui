@@ -1,24 +1,24 @@
 <div ng-controller="UpdateMoodController">
   <div ng-show="successNotify" ng-click="closeNotfication()" class="alert alert-success text-center notification" role="alert">
     <strong>You're Awesome!</strong> You have successfully updated your mood
+</div>
+<form novalidate ng-submit="updateMood()">
+  
+  <div class="form-group">
+    <label for="inlineRadioOptions">How are you feeling?</label>
+    <label class="radio-inline">
+      <input class="moodinput" type="radio" ng-model="newUpdate.mood" name="inlineRadioOptions" id="happy" value="happy"> <img src="/img/happy.png" class="emotIcon" alttext="happy"/>
+    </label>
+    <label class="radio-inline">
+      <input class="moodinput" type="radio" ng-model="newUpdate.mood" name="inlineRadioOptions" id="indifferent" value="indifferent">  <img src="/img/indifferent.png" class="emotIcon" alttext="indifferent"/>
+    </label>
+    <label class="radio-inline">
+      <input class="moodinput" type="radio" ng-model="newUpdate.mood" name="inlineRadioOptions" id="postal" value="postal"> <img src="/img/postal.png" class="emotIcon" alttext="postal"/>
+    </label>
+    <label class="radio-inline">
+      <input class="moodinput" type="radio" ng-model="newUpdate.mood" name="inlineRadioOptions" id="bored" value="bored"> <img src="/img/bored.png" class="emotIcon" alttext="bored"/>
+    </label>
   </div>
-  <form novalidate ng-submit="updateMood()">
-    <div class="form-group">
-      <label for="inlineRadioOptions">How are you feeling?</label>
-      <label class="radio-inline">
-        <input type="radio" ng-model="newUpdate.mood" name="inlineRadioOptions" id="happy" value="happy"> Happy
-      </label>
-      <label class="radio-inline">
-        <input type="radio" ng-model="newUpdate.mood" name="inlineRadioOptions" id="indifferent" value="indifferent">  Indifferent
-      </label>
-      <label class="radio-inline">
-        <input type="radio" ng-model="newUpdate.mood" name="inlineRadioOptions" id="postal" value="postal"> Postal
-      </label>
-      <label class="radio-inline">
-        <input type="radio" ng-model="newUpdate.mood" name="inlineRadioOptions" id="bored" value="bored"> Bored
-      </label>
-    </div>
-
     <div class="form-group">
       <label for="moodInput">Observations or Tasks</label>
       <input type="text" ng-model="newUpdate.notes" class="form-control" id="notes" placeholder="Notes">

@@ -11,6 +11,7 @@
 		}
 
 		$scope.setPanel = function(newPanel) {
+			console.log("new Panel : " + newPanel);
 			$scope.activePanel = newPanel;
 		};
 
@@ -40,13 +41,12 @@
 			XrayMachine.updateMood(email, moodObject).success(function(){
 				// Mood has been successfully sent to API
 				$scope.newUpdate.notes = null;
-				$scope.newUpdate.mood = null;
 				$scope.successNotify = true;
 			});
 		};
   	});
 
-	app.controller('SearchController', function($scope, XrayMachine) {
+	app.controller('SearchController', function($scope, $rootScope, XrayMachine) {
 
 		$scope.searchList = [
         	{ field: 'Consultant', value: 'consultant'},
@@ -58,8 +58,15 @@
  			console.log("Selected: " + selected.value + " Value: " + value);
  			XrayMachine.getClientsForUser(selected, value).success(function(data){			
  				$scope.searchResults = data;
+ 				//$scope.searchResults = [{name:'test'},{name:'test1'}];
 			});
 		};
+
+	    $scope.viewConsutlant = function(name){
+			$scope.setPanel('consultantView');
+			$rootScope.consultantName = name;
+		    console.log("$rootscope.consultantName : " + $rootScope.consultantName);		
+	}	
 
 	});
 
@@ -75,7 +82,7 @@
 		    {name: 'Matt Jones', mood: 'Happy', date: '04/2014'}
 		];
 
-		$scope.name = $location.search()['name'];
+		/*$scope.name = $location.search()['name'];*/
 	}); 
 
 })();
