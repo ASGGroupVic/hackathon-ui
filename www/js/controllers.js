@@ -72,14 +72,12 @@
 
 	app.controller('ConsultantViewController', function($scope, consultantData) {
 
-		$scope.name = $location.search()['name'];
-
 		$scope.search = function(){		
  			console.log("Consultant Name: " + name);
  			consultantData.getConsultantView(name).success(function(data){			
  				$scope.moods = data;
 			});
-		}	
+		};
 
 		/*	$scope.$watch(
 			function () { 
