@@ -66,7 +66,7 @@
 			var consultant = XrayMachine.getConsultant(name);
 			consultantData.setConsultant(consultant);
 			$scope.setPanel('consultantView');
-		}	
+		};	
 
 	});
 

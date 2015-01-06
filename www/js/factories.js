@@ -69,7 +69,7 @@
 	app.factory("consultantData", function(){
 		var data = {
 			consultant : []
-		}
+		};
 
 		return {
 			getConsultant: function() {
@@ -77,9 +77,9 @@
 			},
 
 			setConsultant: function(consultant) {
-				data.consultant = consultant
+				data.consultant = consultant;
 			}
-		}
+		};
 
 	});
 })();
