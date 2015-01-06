@@ -12,12 +12,16 @@
 
 		factory.setUser = function(email) {
 			localStorageService.set('Email', email);
-			currentUser = email;
+
 		};
 
 		factory.getUser = function() {
 			return currentUser;
 		};
+
+		factory.logout = function() {
+			localStorageService.remove('Email');
+		}
   		
   		return factory;
   	
@@ -25,11 +29,12 @@
 
   	app.factory("XrayMachine", function($http){
   		var factory = {};
+  		var host = "http://hackathonapi-env.elasticbeanstalk.com/v1/";
 
 		factory.updateMood = function(email, mood) {
 			return $http({
 				method : 'POST',
-				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/' + email + "/mood",
+				url : host + 'consultant/' + email + "/mood",
 				data : mood
 			});
 		};
@@ -37,17 +42,15 @@
 		factory.getClientsForUser = function(email) {
 			return $http({
 				method : 'GET',
-				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/' + email + "/clients"
+				url : host + 'consultant/' + email + "/clients"
 			});
 		};
   		
-		factory.getConsultant = function(name) {
-			/*return $http({
+		factory.getConsultantDetails = function(email) {
+			return $http({
 				method : 'GET',
-				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/'+ name
-			});*/
-
-  			return [];
+				url : host + 'consultant/'+ email
+			});
 		};
 
   		return factory;

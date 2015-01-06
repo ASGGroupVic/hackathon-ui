@@ -7,7 +7,7 @@
 	
 	app.config(function (localStorageServiceProvider) {
 	  localStorageServiceProvider
-	    .setPrefix('clientXray');
+	    .setPrefix('xray');
 	});
 
 })();
