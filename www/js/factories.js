@@ -55,6 +55,21 @@
 			});
 		};
   		
+		factory.searchConsultant = function(email) {
+			console.log('search consultant by email : ' + email);
+			return $http({
+				method : 'GET',
+				url : host + 'consultant/search/'+ email
+			});
+		};
+
+		factory.searchClient = function(name) {			
+			return $http({
+				method : 'GET',
+				url : host + 'client/search/'+ name
+			});
+		};
+
 		factory.getConsultant = function(email) {
 			console.log('search consultant by email : ' + email);
 			return $http({

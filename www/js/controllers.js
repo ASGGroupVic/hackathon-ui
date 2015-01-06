@@ -97,9 +97,17 @@
 	    $scope.search = function(selected, value){		
  			console.log("Selected: " + selected.value + " Value: " + value);
  			$scope.searchType = selected.value;
- 			XrayMachine.getClientsForUser(value).success(function(data){			
- 				$scope.searchResults = data;
-			});
+
+ 			if(selected.value === "consultant"){
+ 				XrayMachine.searchConsultant(value).success(function(data){			
+ 					$scope.searchResults = data;
+				});
+ 			}
+ 			else if(selected.value === "client"){
+ 				XrayMachine.searchConsultant(value).success(function(data){			
+ 					$scope.searchResults = data;
+				}); 				
+ 			}		
 		};
 
 	    $scope.viewConsutlant = function(email){
