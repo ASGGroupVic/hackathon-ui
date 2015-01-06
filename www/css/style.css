@@ -59,3 +59,9 @@ ul#moodList li:nth-child(even) {
 	padding: 0.5em;
 	min-height: 20px;
 }
+
+.border-row {
+	margin-top: 3em;
+	margin-bottom: 3em;
+    border-bottom: 3px solid #E8E8E8;
+}

@@ -1,0 +1,11 @@
+<h3>Client View</h3>
+<div ng-controller="ClientViewController">
+    <ul>
+        <li ng-repeat="mood in clientMood">
+            count: {{mood.count}}
+        </li>
+        <li ng-if="clients.length == 0">
+            <strong>No results found...</strong>
+        </li>
+    </ul>
+</div>

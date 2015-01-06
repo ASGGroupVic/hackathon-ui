@@ -93,13 +93,33 @@
 			});
 		};
 
+		factory.getClientConsultants = function(clientCode) {
+			return $http({
+				method : 'GET',
+				url : host + 'client/' + clientCode + "/consultants"
+			});
+		};
+
+		factory.getClientMood = function(clientCode) {
+			return $http({
+				method : 'GET',
+				url : host + 'client/' + clientCode + "/mood"
+			});
+		};
+
+
+
   		return factory;
   	
   	});
 
 	app.factory("data", function(){
 		var data = {
-			consultantMood : []
+			consultantMood : [],
+			client : [],
+			clientMood : [],
+			clientConsultants : [],
+			consultant : []
 		};
 
 		return {
@@ -111,13 +131,39 @@
 				data.consultantMood = consultantMood;
 			},
 
+			getConsultant: function() {
+				return data.consultant;
+			},
+
+			setConsultant: function(consultant) {
+				data.consultant = consultant;
+			},
+
+
 			getClient: function() {
 				return data.client;
 			},
 
 			setClient: function(client) {
 				data.client = client;
+			},
+
+			getClientMood: function() {
+				return data.clientMood;
+			},
+
+			setClientMood: function(clientMood) {
+				data.clientMood = clientMood;
+			},
+
+			getClientConsultants: function() {
+				return data.clientConsultants;
+			},
+
+			setClientConsultants: function(clientConsultants) {
+				data.clientConsultants = clientConsultants;
 			}
+
 		};
 
 	});

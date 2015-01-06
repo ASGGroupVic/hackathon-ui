@@ -27,7 +27,7 @@
 
 	<div class="panel panel-default" ng-show="isViewForClients()" ng-repeat="item in searchResults">
 		<div class="panel-body">
-			<a href="" >{{item.name}} <br/>
+			<a href="" ng-click="viewClient(item.clientCode)">{{item.name}} <br/>
 		</div>
 	</div>
 

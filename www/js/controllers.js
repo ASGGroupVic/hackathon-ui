@@ -1,6 +1,6 @@
 (function() {
 
-	var app = angular.module('clientXray.controllers', ['clientXray.factories']);
+	var app = angular.module('clientXray.controllers', ['clientXray.factories', 'clientXray.graph']);
 
 	app.controller('NavigationController', function($scope, LoginHelper){
 		// Determine if login page is required
@@ -85,7 +85,7 @@
 		};
   	});
 
-	app.controller('SearchController', function($scope, XrayMachine,data) {
+	app.controller('SearchController', function($scope, XrayMachine, data) {
 
 		$scope.searchType = '';
 		$scope.searchList = [
@@ -105,51 +105,78 @@
  			}
  			else if(selected.value === "client"){
  				console.log('search for client');
- 				XrayMachine.getClientsForUser(value).success(function(data){			
+ 				XrayMachine.searchClient(value).success(function(data){			
  					$scope.searchResults = data;
 				}); 				
  			}		
 		};
 
 	    $scope.viewConsutlant = function(email){
-			 XrayMachine.getConsultantMood(email).success(function(consultantData){
+			XrayMachine.getConsultantMood(email).success(function(consultantData){
 			 	console.log('consultantData : ' + consultantData);
 				data.setConsultantMood(consultantData);
+			});
+
+			XrayMachine.getConsultant(email).success(function(consultantData){			 	
+				data.setConsultant(consultantData);
 			});
 			$scope.setPanel('consultantView');
 		};	
 
-	    $scope.viewClient = function(name){
-			var client = XrayMachine.getClient(name);
-			data.setClient(client);
-			$scope.setPanel('consultantView');//To do go to client view
+	    $scope.viewClient = function(clientCode){
+			XrayMachine.getClient(clientCode).success(function(clientData){
+				data.setClient(clientData);
+			});
+
+			XrayMachine.getClientMood(clientCode).success(function(clientMoodData){
+				data.setClientMood(clientMoodData);
+			});
+
+			XrayMachine.getClientConsultants(clientCode).success(function(clientConsultantsData){
+				data.setClientConsultants(clientConsultantsData);
+			});
+			$scope.setPanel('clientView');//To do go to client view
 		};
 
 		$scope.isViewForClients = function() {
 			return $scope.searchType === 'client';
-		}	
+		};
 
 		$scope.isViewForMood = function() {
 			return $scope.searchType === 'mood';
-		}	
+		};	
 
 		$scope.isViewForConsultant = function() {
 			return $scope.searchType === 'consultant';
-		}	
+		};	
 
 	});
 
-	app.controller('ConsultantViewController', function($scope, data) {
+	app.controller('ConsultantViewController', function($scope, data, Grapher) {
 
 		$scope.$watch(
 			function () { 
 				return data.getConsultantMood(); 
 			},
 			function (newValue) {
+        		if (newValue && newValue != '')
+        		{
+        			console.log('newValue : ' + newValue);
+        			$scope.consultantMood = newValue;
+        			Grapher.createGraph(newValue);
+        		}
+    		}
+    	);
+
+    	$scope.$watch(
+			function () { 
+				return data.getConsultant(); 
+			},
+			function (newValue) {
         		if (newValue)
         		{
         			console.log('newValue : ' + newValue); 
-        			$scope.consultantMood = newValue;
+        			$scope.consultant = newValue;
         		}
     		}
     	);
@@ -160,10 +187,49 @@
 			},
 			function (newValue) {
         		if (newValue) 
-        			$scope.client = client;
+        			$scope.client = newValue;
     		}
     	);
 
-	}); 
+	});
 
+	app.controller('ClientViewController', function($scope, data) {
+
+		$scope.$watch(
+			function () {
+				return data.getClientMood();
+			},
+			function (newValue) {
+				if (newValue)
+				{
+					console.log('newValue : ' + newValue);
+					$scope.clientMood = newValue;
+				}
+			}
+		);
+
+		$scope.$watch(
+			function () {
+				return data.getClientConsultants();
+			},
+			function (newValue) {
+				if (newValue)
+				{
+					console.log('newValue : ' + newValue);
+					$scope.clientConsultants = newValue;
+				}
+			}
+		);
+
+		$scope.$watch(
+			function () {
+				return data.getClient();
+			},
+			function (newValue) {
+				if (newValue)
+					$scope.client = newValue;
+			}
+		);
+
+	});
 })();

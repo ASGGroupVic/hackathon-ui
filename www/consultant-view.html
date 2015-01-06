@@ -1,14 +1,16 @@
-<h3>Consultant View</h3>
 <div ng-controller="ConsultantViewController">
+	<h2>Consultant Overview</h2>
+	<div class="graphContainer">
+    	<p id="chart"></p>
+    </div>
+    <div class="border-row row"></div>
+    <h2>Mood History</h2>
     <ul id="moodList">
         <li ng-repeat="mood in consultantMood" class="moodItem row">
         	<div>
         		<div class="col-md-3 col-sm-3 col-xs-3">{{mood.month}}/{{mood.year}} - {{mood.mood}}</div>
         		<div class="col-md-3 col-sm-3 col-xs-3"><img class="emotIcon" ng-src="img/{{mood.mood}}.png"/></div>
         	</div>
-        </li>
-        <li ng-if="consultants.length == 0">
-	      <strong>No results found...</strong>
-	    </li>
+        </li>       
     </ul>
 </div>
