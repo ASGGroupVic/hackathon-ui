@@ -2,6 +2,12 @@ body{
 	background-color: #EEE;
 }
 
+.truncate {
+  white-space:nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+
 .container{
 	background-color: #FFF;
 	padding: 1em;

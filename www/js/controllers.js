@@ -51,6 +51,12 @@
  					$scope.newUpdate.client = 'bench';
  				}
  			});
+ 			XrayMachine.getConsultantMoodBriefHistory(LoginHelper.getUser()).success(function(data){			
+ 				if (data[0])
+ 				{
+ 					$scope.moodHistory = data;
+ 				}
+ 			});
  		};
 
  		// Update clients for this user and create callback function for each login thereafter

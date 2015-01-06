@@ -86,6 +86,13 @@
 			});
 		};
 
+		factory.getConsultantMoodBriefHistory = function(email) {
+			return $http({
+				method : 'GET',
+				url : host + 'consultant/'+ email + "/last5mood"
+			});
+		};
+
 		factory.getClient = function(clientCode) {
 			return $http({
 				method : 'GET',
