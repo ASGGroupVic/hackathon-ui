@@ -48,8 +48,21 @@
 	    	$scope.successNotify = false;
 	    };
 
+	    $scope.getHashtags = function(){
+			var regex = /#[^\s]+/g;
+
+			var matches = [];
+			var match = regex.exec($scope.newUpdate.notes);
+			while (match != null) {
+			    matches.push(match[0].replace("#", ""));
+			    match = regex.exec($scope.newUpdate.notes);
+			}
+			return matches.join(",");
+	    };
+
 	    $scope.updateMood = function(){
-			var moodObject = { mood: $scope.newUpdate.mood, notes : $scope.newUpdate.notes, client : $scope.newUpdate.client };
+	    	var tagsList = $scope.getHashtags();
+			var moodObject = { mood: $scope.newUpdate.mood, notes : $scope.newUpdate.notes, client : $scope.newUpdate.client, tags : tagsList };
 			var email = LoginHelper.getUser();
 			XrayMachine.updateMood(email, moodObject).success(function(){
 				// Mood has been successfully sent to API
