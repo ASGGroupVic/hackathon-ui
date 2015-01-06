@@ -1,11 +1,16 @@
 <div ng-controller="ConsultantViewController">
-	<h3>{{consultant.firstName}} {{consultant.lastName}}</h3>
-    <ul>
-        <li ng-repeat="mood in consultantMood">
-        	{{mood.month}}/{{mood.year}} {{mood.mood}}
-        </li>       
-    </ul>
-    <div class="graphContainer">
+	<h2>Consultant Overview</h2>
+	<div class="graphContainer">
     	<p id="chart"></p>
     </div>
+    <div class="border-row row"></div>
+    <h2>Mood History</h2>
+    <ul id="moodList">
+        <li ng-repeat="mood in consultantMood" class="moodItem row">
+        	<div>
+        		<div class="col-md-3 col-sm-3 col-xs-3">{{mood.month}}/{{mood.year}} - {{mood.mood}}</div>
+        		<div class="col-md-3 col-sm-3 col-xs-3"><img class="emotIcon" ng-src="img/{{mood.mood}}.png"/></div>
+        	</div>
+        </li>       
+    </ul>
 </div>
