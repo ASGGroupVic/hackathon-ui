@@ -93,13 +93,32 @@
 			});
 		};
 
+		factory.getClientConsultants = function(clientCode) {
+			return $http({
+				method : 'GET',
+				url : host + 'client/' + client + "/consultant"
+			});
+		};
+
+		factory.getClientMood = function(clientCode) {
+			return $http({
+				method : 'GET',
+				url : host + 'client/' + clientCode + "/mood"
+			});
+		};
+
+
+
   		return factory;
   	
   	});
 
 	app.factory("data", function(){
 		var data = {
-			consultantMood : []
+			consultantMood : [],
+			client : [],
+			clientMood : [],
+			clientConsultants : []
 		};
 
 		return {
@@ -117,7 +136,24 @@
 
 			setClient: function(client) {
 				data.client = client;
+			},
+
+			getClientMood: function() {
+				return data.clientMood;
+			},
+
+			setClientMood: function(clientMood) {
+				data.clientMood = clientMood;
+			},
+
+			getClientConsultants: function() {
+				return data.clientConsultants;
+			},
+
+			setClientConsultants: function(clientConsultants) {
+				data.clientConsultants = clientConsultants;
 			}
+
 		};
 
 	});

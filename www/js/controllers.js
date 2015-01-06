@@ -105,37 +105,46 @@
  			}
  			else if(selected.value === "client"){
  				console.log('search for client');
- 				XrayMachine.getClientsForUser(value).success(function(data){			
+ 				XrayMachine.searchClient(value).success(function(data){			
  					$scope.searchResults = data;
 				}); 				
  			}		
 		};
 
 	    $scope.viewConsutlant = function(email){
-			 XrayMachine.getConsultantMood(email).success(function(consultantData){
+			XrayMachine.getConsultantMood(email).success(function(consultantData){
 			 	console.log('consultantData : ' + consultantData);
 				data.setConsultantMood(consultantData);
 			});
 			$scope.setPanel('consultantView');
 		};	
 
-	    $scope.viewClient = function(name){
-			var client = XrayMachine.getClient(name);
-			data.setClient(client);
-			$scope.setPanel('consultantView');//To do go to client view
+	    $scope.viewClient = function(clientCode){
+			XrayMachine.getClient(clientCode).success(function(clientData){
+				data.setClient(clientData);
+			});
+
+			XrayMachine.getClientMood(clientCode).success(function(clientMoodData){
+				data.setClientMood(cientMoodData);
+			});
+
+			XrayMachine.getClientConsultants(clientCode).success(function(clientConsultantsData){
+				data.setClientConsultants(clientConsultantsData);
+			});
+			//$scope.setPanel('clientView');//To do go to client view
 		};
 
 		$scope.isViewForClients = function() {
 			return $scope.searchType === 'client';
-		}	
+		};
 
 		$scope.isViewForMood = function() {
 			return $scope.searchType === 'mood';
-		}	
+		};	
 
 		$scope.isViewForConsultant = function() {
 			return $scope.searchType === 'consultant';
-		}	
+		};	
 
 	});
 
@@ -160,7 +169,7 @@
 			},
 			function (newValue) {
         		if (newValue) 
-        			$scope.client = client;
+        			$scope.client = newValue;
     		}
     	);
 
