@@ -2,7 +2,7 @@
 <div ng-controller="ClientViewController">
     <ul>
         <li ng-repeat="mood in clientMood">
-            {{mood.month}}/{{mood.year}} count: {{mood.count}}
+            count: {{mood.count}}
         </li>
         <li ng-if="clients.length == 0">
             <strong>No results found...</strong>
