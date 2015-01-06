@@ -41,7 +41,31 @@
 			});
 		};
   		
+		factory.getConsultantView = function(name) {
+			return $http({
+				method : 'GET',
+				url : 'http://hackathonapi-env.elasticbeanstalk.com/v1/consultant/'+ name
+			});
+		};
+
   		return factory;
   	
   	});
+
+	app.factory("consultantData", function(){
+		var data = {
+			consultant : []
+		};
+
+		return {
+			getConsultant: function() {
+				return data.consultant;
+			},
+
+			setConsultant: function(consultant) {
+				data.consultant = consultant;
+			}
+		};
+
+	});
 })();

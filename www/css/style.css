@@ -19,5 +19,16 @@ body{
 }
 
 input[type="radio"]:checked + img{
-	background-color: #ACF;
+	background-color: #ACC;
+
+}
+
+.notification {
+	position: absolute;
+	left: 20;
+	right: 20;
+}
+
+.no-margin {
+	margin: 0;
 }

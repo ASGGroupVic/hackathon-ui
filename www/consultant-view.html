@@ -1,11 +1,12 @@
 <h3>Consultant View</h3>
 <div ng-controller="ConsultantViewController">
-	There are total {{consultants.length}} entries.
+	There are total {{moods.length}} entries for Consultant {{name}}.
     <ul>
-        <li ng-repeat="consultant in consultants">
-        	{{consultant.name}}: {{consultant.mood}}: {{consultant.date}}
+        <li ng-repeat="mood in moods">
+        	{{mood.name}}: {{mood.mood}}: {{mood.date}}
+
         </li>
-        <li ng-if="consultants.length == 0">
+        <li ng-if="moods.length == 0">
 	      <strong>No results found...</strong>
 	    </li>
     </ul>
