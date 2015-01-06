@@ -15,10 +15,12 @@ body{
 .emotIcon{
 	max-width: 2em;
 	min-width: 2em;
+	border-radius: 1em;
 }
 
 input[type="radio"]:checked + img{
 	background-color: #ACC;
+
 }
 
 .notification {
