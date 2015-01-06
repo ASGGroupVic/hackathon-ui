@@ -1,6 +1,6 @@
 (function() {
 
-	var app = angular.module('clientXray.controllers', ['clientXray.factories']);
+	var app = angular.module('clientXray.controllers', ['clientXray.factories', 'clientXray.graph']);
 
 	app.controller('NavigationController', function($scope, LoginHelper){
 		// Determine if login page is required
@@ -85,7 +85,7 @@
 		};
   	});
 
-	app.controller('SearchController', function($scope, XrayMachine,data) {
+	app.controller('SearchController', function($scope, XrayMachine, data) {
 
 		$scope.searchType = '';
 		$scope.searchList = [
@@ -138,17 +138,18 @@
 
 	});
 
-	app.controller('ConsultantViewController', function($scope, data) {
+	app.controller('ConsultantViewController', function($scope, data, Grapher) {
 
 		$scope.$watch(
 			function () { 
 				return data.getConsultantMood(); 
 			},
 			function (newValue) {
-        		if (newValue)
+        		if (newValue && typeof newValue != 'undefined')
         		{
-        			console.log('newValue : ' + newValue); 
+        			console.log('newValue : ' + newValue);
         			$scope.consultantMood = newValue;
+        			Grapher.createGraph(newValue);
         		}
     		}
     	);
