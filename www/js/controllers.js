@@ -23,7 +23,8 @@
 
 		$scope.login = function(){
 			// Add Email to local storage
-			LoginHelper.setUser($scope.email); $scope.setPanel('updateMood');
+			LoginHelper.setUser($scope.email); 
+			$scope.activePanel = 'updateMood';
 		};
 	});
 
