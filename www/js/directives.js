@@ -36,4 +36,11 @@
 			templateUrl: 'consultant-view.html'
 		};
 	});
+
+	app.directive("clientView", function() {
+		return {
+			restrict: 'E',
+			templateUrl: 'client-view.html'
+		};
+	});
 })();

@@ -125,13 +125,13 @@
 			});
 
 			XrayMachine.getClientMood(clientCode).success(function(clientMoodData){
-				data.setClientMood(cientMoodData);
+				data.setClientMood(clientMoodData);
 			});
 
 			XrayMachine.getClientConsultants(clientCode).success(function(clientConsultantsData){
 				data.setClientConsultants(clientConsultantsData);
 			});
-			//$scope.setPanel('clientView');//To do go to client view
+			$scope.setPanel('clientView');//To do go to client view
 		};
 
 		$scope.isViewForClients = function() {
@@ -173,6 +173,32 @@
     		}
     	);
 
-	}); 
+	});
 
+	app.controller('ClientViewController', function($scope, data) {
+
+		$scope.$watch(
+			function () {
+				return data.getClientMood();
+			},
+			function (newValue) {
+				if (newValue)
+				{
+					console.log('newValue : ' + newValue);
+					$scope.clientMood = newValue;
+				}
+			}
+		);
+
+		$scope.$watch(
+			function () {
+				return data.getClient();
+			},
+			function (newValue) {
+				if (newValue)
+					$scope.client = newValue;
+			}
+		);
+
+	});
 })();

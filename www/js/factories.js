@@ -96,7 +96,7 @@
 		factory.getClientConsultants = function(clientCode) {
 			return $http({
 				method : 'GET',
-				url : host + 'client/' + client + "/consultant"
+				url : host + 'client/' + clientCode + "/consultants"
 			});
 		};
 
