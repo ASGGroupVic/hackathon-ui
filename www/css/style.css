@@ -1,5 +1,6 @@
 body{
 	background-color: #EEE;
+	color: #666;
 }
 
 .container{
@@ -38,4 +39,23 @@ input[type="radio"]:checked + img{
 	margin: -1em;
 	max-height: 50px;
 	padding-right: 1em;
+}
+
+#moodList{
+	list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul#moodList li:nth-child(odd) {
+	background-color:#E8E8E8;
+}
+
+ul#moodList li:nth-child(even) {
+	background-color:#FFF;
+}
+
+.moodItem{
+	padding: 0.5em;
+	min-height: 20px;
 }
