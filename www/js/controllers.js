@@ -104,7 +104,8 @@
 				});
  			}
  			else if(selected.value === "client"){
- 				XrayMachine.searchConsultant(value).success(function(data){			
+ 				console.log('search for client');
+ 				XrayMachine.getClientsForUser(value).success(function(data){			
  					$scope.searchResults = data;
 				}); 				
  			}		
