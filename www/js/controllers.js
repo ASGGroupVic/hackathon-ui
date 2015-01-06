@@ -61,6 +61,7 @@
 
 	app.controller('SearchController', function($scope, XrayMachine,data) {
 
+		$scope.searchType = '';
 		$scope.searchList = [
         	{ field: 'Consultant', value: 'consultant'},
         	{ field: 'Client', value: 'client'},
@@ -69,9 +70,9 @@
 
 	    $scope.search = function(selected, value){		
  			console.log("Selected: " + selected.value + " Value: " + value);
+ 			$scope.searchType = selected.value;
  			XrayMachine.getClientsForUser(value).success(function(data){			
  				$scope.searchResults = data;
- 				//$scope.searchResults = [{name:'test'},{name:'test1'}];
 			});
 		};
 
@@ -87,7 +88,19 @@
 			var client = XrayMachine.getClient(name);
 			data.setClient(client);
 			$scope.setPanel('consultantView');//To do go to client view
-		};	
+		};
+
+		$scope.isViewForClients = function() {
+			return $scope.searchType === 'client';
+		}	
+
+		$scope.isViewForMood = function() {
+			return $scope.searchType === 'mood';
+		}	
+
+		$scope.isViewForConsultant = function() {
+			return $scope.searchType === 'consultant';
+		}	
 
 	});
 
