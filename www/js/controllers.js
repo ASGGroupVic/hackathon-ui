@@ -2,35 +2,43 @@
 
 	var app = angular.module('clientXray.controllers', ['clientXray.factories', 'clientXray.graph']);
 
-	app.controller('NavigationController', function($scope, LoginHelper){
-		// Determine if login page is required
-		if(!LoginHelper.isLoggedIn()) {
-			$scope.activePanel = "login";
-		} else {
-			$scope.activePanel = "updateMood";
-		}
+	app.controller('NavigationController', function($scope, $location, LoginHelper) {
+		// Make sure dropdown menu closes itselt upon item click
+		angular.element(document).ready(function () {
+			$('.navbar-collapse a').click(function(){
+			    $(".navbar-collapse").collapse('hide');
+			});		    
+		});
+		
+		// Only show menu if user is logged in
+		$scope.$watch(
+			function () { 
+				return LoginHelper.isLoggedIn(); 
+			},
+			function (newValue) {
+        		$scope.showMenu = newValue;
+    		}
+    	);
 
-		$scope.setPanel = function(newPanel) {
-			console.log("new Panel : " + newPanel);
-			// close menu
-			$(".navbar-collapse").collapse('hide');
-			$scope.activePanel = newPanel;
-		};
+		// Set current path each time page is changed
+    	$scope.$on('$locationChangeSuccess', function(event) {
+    		console.log('URL change to ' + $location.path());
+    		$scope.currentPath = $location.path();
+    	});
 
-		$scope.isSet = function(panelName){
-			return $scope.activePanel === panelName;
-		};
+    	$scope.isSet = function(value) {
+    		return $scope.currentPath === value;
+    	};
 
 		$scope.login = function(){
 			// Add Email to local storage
 			LoginHelper.setUser($scope.email);
-			$scope.activePanel = 'updateMood';
+			$location.path('/');
 		};
 
 		$scope.logout = function() {
 			LoginHelper.logout();
-			$(".navbar-collapse").collapse('hide');
-			$scope.activePanel = 'login';
+			$location.path('/login');
 		};
 	});
 
@@ -93,7 +101,7 @@
 		};
   	});
 
-	app.controller('SearchController', function($scope, XrayMachine, data, MoodValues) {
+	app.controller('SearchController', function($scope, XrayMachine, $location, data, MoodValues) {
 
 		$scope.searchType = '';
 		$scope.searchList = [
@@ -128,7 +136,7 @@
 			XrayMachine.getConsultant(email).success(function(consultantData) {			 	
 				data.setConsultant(consultantData);
 			});
-			$scope.setPanel('consultantView');
+			$location.path('/consultant/'+email);
 		};	
 
 	    $scope.viewClient = function(clientCode){
@@ -152,7 +160,7 @@
 				moodCount += MoodValues.getMoodValue((mood['mood.name']));
 			}
 			data.setOverallMood = moodCount/totalCount;
-			$scope.setPanel('clientView');
+			$location.path('/client/'+clientCode);
 		};
 
 		$scope.isViewForClients = function() {
@@ -207,7 +215,7 @@
 
 	});
 
-	app.controller('ClientViewController', function($scope, data, XrayMachine) {
+	app.controller('ClientViewController', function($scope, data, XrayMachine, $location) {
 
 		$scope.$watch(
 			function () {
@@ -263,7 +271,7 @@
 				data.setConsultant(consultantData);
 			});
 
-			$scope.setPanel('consultantView');
+			$location.path('/consultant/'+email);
 		};			
 	});
 })();
