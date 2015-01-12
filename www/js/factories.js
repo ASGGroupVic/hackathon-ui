@@ -109,18 +109,47 @@
   		return factory;
   	});
 
+	app.factory("MoodValues", function(){
+
+		return {
+			getMoodValue: function(mood){
+				if(mood === indifferent){
+					return 75;
+				}
+				else if(mood === bored){
+					return 50;
+				}
+				else if(mood === happy){
+					return 100;
+				}
+				else{
+					return 0;
+				}
+			}
+		};
+	});
+
+
 	app.factory("data", function(){
 		var data = {
 			consultantMood : null,
 			client : null,
 			clientMood : null,
 			clientConsultants : null,
-			consultant : null
+			consultant : null,
+			overallMood : []
 		};
 
 		return {
 			getConsultantMood: function() {
 				return data.consultantMood;
+			},
+			getOverallMood: function() {
+				return data.overallMood;
+			},
+
+			setOverallMood: function(overallMood) {
+				data.overallMood = overallMood;
 			},
 
 			setConsultantMood: function(consultantMood) {

@@ -6,6 +6,9 @@
     var factory = {};
 
     factory.createGraph = function(data) {
+        // Remove graph is one already exists
+        d3.select("svg").remove();
+
         // Defines a sort order so that the smallest dots are drawn on top.
         function order(a, b) {
           return radius(b) - radius(a);
