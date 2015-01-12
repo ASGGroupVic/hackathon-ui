@@ -39,29 +39,31 @@
 	    $scope.newUpdate = {};
 	    $scope.successNotify = false;
 
- 		var updateClientsForUser = function() {
- 			XrayMachine.getClientsForUser(LoginHelper.getUser()).success(function(data){			
- 				$scope.clientsForUser = data;
- 				if (data[0])
- 				{
- 					$scope.newUpdate.client = data[0].clientCode;
- 				}
- 				else
- 				{
- 					$scope.newUpdate.client = 'bench';
- 				}
- 			});
- 			XrayMachine.getConsultantMoodBriefHistory(LoginHelper.getUser()).success(function(data){			
- 				if (data[0])
- 				{
- 					$scope.moodHistory = data;
- 				}
- 			});
- 		};
-
- 		// Update clients for this user and create callback function for each login thereafter
- 		updateClientsForUser();
- 		LoginHelper.attachLoginCallback(updateClientsForUser);
+	    // Run everytime new user is logged in
+		$scope.$watch(
+			function () {
+				return LoginHelper.getUser();
+			},
+			function (newValue) {
+				if (newValue !== null)
+				{
+					XrayMachine.getClientsForUser(LoginHelper.getUser()).success(function(data){			
+		 				$scope.clientsForUser = data;
+		 				if (data[0]) {
+		 					$scope.newUpdate.client = data[0].clientCode;
+		 				}
+		 				else {
+		 					$scope.newUpdate.client = 'bench';
+		 				}
+		 			});
+		 			XrayMachine.getConsultantMoodBriefHistory(LoginHelper.getUser()).success(function(data){			
+		 				if (data[0]) {
+		 					$scope.moodHistory = data;
+		 				}
+		 			});
+				}
+			}
+		);
 
 	    $scope.closeNotfication = function() {
 	    	$scope.successNotify = false;
@@ -72,7 +74,7 @@
 
 			var matches = [];
 			var match = regex.exec($scope.newUpdate.notes);
-			while (match != null) {
+			while (match !== null) {
 			    matches.push(match[0].replace("#", ""));
 			    match = regex.exec($scope.newUpdate.notes);
 			}
@@ -104,12 +106,12 @@
  			console.log("Selected: " + selected.value + " Value: " + value);
  			$scope.searchType = selected.value;
 
- 			if(selected.value === "consultant"){
+ 			if(selected.value === "consultant") {
  				XrayMachine.searchConsultant(value).success(function(data){			
  					$scope.searchResults = data;
 				});
  			}
- 			else if(selected.value === "client"){
+ 			else if(selected.value === "client") {
  				console.log('search for client');
  				XrayMachine.searchClient(value).success(function(data){			
  					$scope.searchResults = data;
@@ -118,27 +120,27 @@
 		};
 
 	    $scope.viewConsutlant = function(email){
-			XrayMachine.getConsultantMood(email).success(function(consultantData){
+			XrayMachine.getConsultantMood(email).success(function(consultantData) {
 			 	console.log('consultantData : ' + consultantData);
 				data.setConsultantMood(consultantData);
 			});
 
-			XrayMachine.getConsultant(email).success(function(consultantData){			 	
+			XrayMachine.getConsultant(email).success(function(consultantData) {			 	
 				data.setConsultant(consultantData);
 			});
 			$scope.setPanel('consultantView');
 		};	
 
 	    $scope.viewClient = function(clientCode){
-			XrayMachine.getClient(clientCode).success(function(clientData){
+			XrayMachine.getClient(clientCode).success(function(clientData) {
 				data.setClient(clientData);
 			});
 
-			XrayMachine.getClientMood(clientCode).success(function(clientMoodData){
+			XrayMachine.getClientMood(clientCode).success(function(clientMoodData) {
 				data.setClientMood(clientMoodData);
 			});
 
-			XrayMachine.getClientConsultants(clientCode).success(function(clientConsultantsData){
+			XrayMachine.getClientConsultants(clientCode).success(function(clientConsultantsData) {
 				data.setClientConsultants(clientConsultantsData);
 			});
 			$scope.setPanel('clientView');//To do go to client view
@@ -165,9 +167,7 @@
 				return data.getConsultantMood(); 
 			},
 			function (newValue) {
-        		if (newValue && newValue != '')
-        		{
-        			console.log('newValue : ' + newValue);
+        		if (newValue !== null) {
         			$scope.consultantMood = newValue;
         			Grapher.createGraph(newValue);
         		}
@@ -179,9 +179,7 @@
 				return data.getConsultant(); 
 			},
 			function (newValue) {
-        		if (newValue)
-        		{
-        			console.log('newValue : ' + newValue); 
+        		if (newValue) {
         			$scope.consultant = newValue;
         		}
     		}
@@ -192,8 +190,9 @@
 				return data.getClient(); 
 			},
 			function (newValue) {
-        		if (newValue) 
+        		if (newValue) {
         			$scope.client = newValue;
+        		}
     		}
     	);
 
@@ -206,9 +205,7 @@
 				return data.getClientMood();
 			},
 			function (newValue) {
-				if (newValue)
-				{
-					console.log('newValue : ' + newValue);
+				if (newValue) {
 					$scope.clientMood = newValue;
 				}
 			}
@@ -219,9 +216,7 @@
 				return data.getClientConsultants();
 			},
 			function (newValue) {
-				if (newValue)
-				{
-					console.log('newValue : ' + newValue);
+				if (newValue) {
 					$scope.clientConsultants = newValue;
 				}
 			}
@@ -232,8 +227,9 @@
 				return data.getClient();
 			},
 			function (newValue) {
-				if (newValue)
+				if (newValue) {
 					$scope.client = newValue;
+				}
 			}
 		);
 

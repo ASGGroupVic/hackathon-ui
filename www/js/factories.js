@@ -5,7 +5,6 @@
 	app.factory("LoginHelper", function(localStorageService){
   		var factory = {};
   		var currentUser = localStorageService.get('Email');
-  		var loginHandler = null;
 
 		factory.isLoggedIn = function() {
 			return currentUser !== null;
@@ -14,9 +13,6 @@
 		factory.setUser = function(email) {
 			localStorageService.set('Email', email);
 			currentUser = email;
-			if(loginHandler !== null) {
-				loginHandler();
-			} 
 		};
 
 		factory.getUser = function() {
@@ -26,10 +22,6 @@
 		factory.logout = function() {
 			currentUser = null;
 			localStorageService.remove('Email');
-		};
-
-		factory.attachLoginCallback = function(callback) {
-			loginHandler = callback;
 		};
   		
   		return factory;
@@ -114,19 +106,16 @@
 			});
 		};
 
-
-
   		return factory;
-  	
   	});
 
 	app.factory("data", function(){
 		var data = {
-			consultantMood : [],
-			client : [],
-			clientMood : [],
-			clientConsultants : [],
-			consultant : []
+			consultantMood : null,
+			client : null,
+			clientMood : null,
+			clientConsultants : null,
+			consultant : null
 		};
 
 		return {
