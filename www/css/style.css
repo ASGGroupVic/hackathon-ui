@@ -33,8 +33,11 @@ input[type="radio"]:checked + img{
 
 .notification {
 	position: absolute;
-	left: 20;
-	right: 20;
+	z-index: 1;
+	width: 80%;
+	margin: auto;
+	left: 20px;
+	right: 20px;
 }
 
 .no-margin {
@@ -70,4 +73,17 @@ ul#moodList li:nth-child(even) {
 	margin-top: 3em;
 	margin-bottom: 3em;
     border-bottom: 3px solid #E8E8E8;
+}
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
 }
