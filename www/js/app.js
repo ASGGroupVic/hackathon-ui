@@ -33,7 +33,7 @@
                 controller  : 'ConsultantViewController'
             })
             // route for the client view page
-            .when('/client/:code', {
+            .when('/client/:clientCode', {
                 templateUrl : 'client-view.html',
                 controller  : 'ClientViewController'
             })

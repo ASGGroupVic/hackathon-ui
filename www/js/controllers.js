@@ -55,6 +55,7 @@
 			function (newValue) {
 				if (newValue !== null)
 				{
+					console.log("New Login Detected: " + newValue);
 					XrayMachine.getClientsForUser(LoginHelper.getUser()).success(function(data){			
 		 				$scope.clientsForUser = data;
 		 				if (data[0]) {
@@ -101,7 +102,7 @@
 		};
   	});
 
-	app.controller('SearchController', function($scope, XrayMachine, $location, data, MoodValues) {
+	app.controller('SearchController', function($scope, XrayMachine, $location, MoodValues) {
 
 		$scope.searchType = '';
 		$scope.searchList = [
@@ -128,38 +129,11 @@
 		};
 
 	    $scope.viewConsutlant = function(email){
-			XrayMachine.getConsultantMood(email).success(function(consultantData) {
-			 	console.log('consultantData : ' + consultantData);
-				data.setConsultantMood(consultantData);
-			});
-
-			XrayMachine.getConsultant(email).success(function(consultantData) {			 	
-				data.setConsultant(consultantData);
-			});
-			$location.path('/consultant/'+email);
+			$location.path('/consultant/' + email);
 		};	
 
 	    $scope.viewClient = function(clientCode){
-			XrayMachine.getClient(clientCode).success(function(clientData) {
-				data.setClient(clientData);
-			});
-
-			XrayMachine.getClientMood(clientCode).success(function(clientMoodData) {
-				data.setClientMood(clientMoodData);
-			});
-
-			XrayMachine.getClientConsultants(clientCode).success(function(clientConsultantsData) {
-				data.setClientConsultants(clientConsultantsData);
-			});				
-
-    		var totalCount = 0;
-			var moodCount = 0;
-			for(var mood in data.getClientMood()) {
-				console.log("Mood: " + mood.count + " " + mood['mood.name']);
-				totalCount += mood.count;
-				moodCount += MoodValues.getMoodValue((mood['mood.name']));
-			}
-			data.setOverallMood = moodCount/totalCount;
+			
 			$location.path('/client/'+clientCode);
 		};
 
@@ -177,100 +151,64 @@
 
 	});
 
-	app.controller('ConsultantViewController', function($scope, data, Grapher) {
+	app.controller('ConsultantViewController', function($scope, XrayMachine, Grapher, $routeParams) {
+		var init = function () {
+            console.log("ConsultantView Initialising...");
 
-		$scope.$watch(
-			function () { 
-				return data.getConsultantMood(); 
-			},
-			function (newValue) {
-        		if (newValue !== null) {
-        			$scope.consultantMood = newValue;
-        			Grapher.createGraph(newValue);
-        		}
-    		}
-    	);
+            var email = $routeParams.email;
 
-    	$scope.$watch(
-			function () { 
-				return data.getConsultant(); 
-			},
-			function (newValue) {
-        		if (newValue) {
-        			$scope.consultant = newValue;
-        		}
-    		}
-    	);
+            XrayMachine.getConsultantMood(email).success(function(consultantData) {
+			 	console.log('consultantData : ' + consultantData);
+				$scope.consultantMood = consultantData;
+				Grapher.createGraph(consultantData);
+			});
 
-		$scope.$watch(
-			function () { 
-				return data.getClient(); 
-			},
-			function (newValue) {
-        		if (newValue) {
-        			$scope.client = newValue;
-        		}
-    		}
-    	);
+			XrayMachine.getConsultant(email).success(function(consultantData) {			 	
+				$scope.consultant = consultantData;
+			});
+        };
+
+        // fire on controller loaded
+        init();
 
 	});
 
-	app.controller('ClientViewController', function($scope, data, XrayMachine, $location) {
+	app.controller('ClientViewController', function($scope, XrayMachine, MoodValues, $routeParams, $location) {
+		var init = function () {
+            console.log("ClientView Initialising...");
 
-		$scope.$watch(
-			function () {
-				return data.getClientMood();
-			},
-			function (newValue) {
-				if (newValue) {
-					$scope.clientMood = newValue;					
-				}
-			}
-		);
+            // Get the client code from the route paramater
+            var clientCode = $routeParams.clientCode;
 
-		$scope.$watch(
-			function () {
-				return data.getOverallMood();
-			},
-			function (newValue) {
-				if (newValue) {
-					$scope.overallClientMood = newValue;					
-				}
-			}
-		);
-		
-		$scope.$watch(
-			function () {
-				return data.getClientConsultants();
-			},
-			function (newValue) {
-				if (newValue) {
-					$scope.clientConsultants = newValue;
-				}
-			}
-		);
+            // Fetch data from the server using the client code
+            XrayMachine.getClient(clientCode).success(function(clientData) {
+				$scope.client = clientData;
+			});
 
-		$scope.$watch(
-			function () {
-				return data.getClient();
-			},
-			function (newValue) {
-				if (newValue) {
-					$scope.client = newValue;
+			XrayMachine.getClientMood(clientCode).success(function(clientMoodData) {
+				$scope.clientMood = clientMoodData;
+
+				var totalCount = 0;
+				var moodCount = 0;
+				for(var index = 0; index < clientMoodData.length; index++) {
+					var mood = clientMoodData[index];
+					console.log("Mood: " + angular.toJson(mood));
+					totalCount += mood.count;
+					moodCount += mood.count * MoodValues.getMoodValue((mood['mood.name']));
 				}
-			}
-		);		
+				$scope.overallClientMood = moodCount/totalCount;
+				console.log("Overall Mood: " + $scope.overallClientMood);
+			});
+
+			XrayMachine.getClientConsultants(clientCode).success(function(clientConsultantsData) {
+				$scope.clientConsultants = clientConsultantsData;
+			});									
+        };
+
+        // fire on controller loaded
+        init();
 
 	    $scope.viewConsultant = function(email){
-			XrayMachine.getConsultantMood(email).success(function(consultantData){
-			 	console.log('consultantData : ' + consultantData);
-				data.setConsultantMood(consultantData);
-			});
-
-			XrayMachine.getConsultant(email).success(function(consultantData){			 	
-				data.setConsultant(consultantData);
-			});
-
 			$location.path('/consultant/'+email);
 		};			
 	});

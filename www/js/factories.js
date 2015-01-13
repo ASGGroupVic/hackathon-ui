@@ -113,13 +113,13 @@
 
 		return {
 			getMoodValue: function(mood){
-				if(mood === indifferent){
+				if(mood === 'indifferent'){
 					return 75;
 				}
-				else if(mood === bored){
+				else if(mood === 'bored'){
 					return 50;
 				}
-				else if(mood === happy){
+				else if(mood === 'happy'){
 					return 100;
 				}
 				else{
@@ -129,67 +129,4 @@
 		};
 	});
 
-
-	app.factory("data", function(){
-		var data = {
-			consultantMood : null,
-			client : null,
-			clientMood : null,
-			clientConsultants : null,
-			consultant : null,
-			overallMood : []
-		};
-
-		return {
-			getConsultantMood: function() {
-				return data.consultantMood;
-			},
-			getOverallMood: function() {
-				return data.overallMood;
-			},
-
-			setOverallMood: function(overallMood) {
-				data.overallMood = overallMood;
-			},
-
-			setConsultantMood: function(consultantMood) {
-				data.consultantMood = consultantMood;
-			},
-
-			getConsultant: function() {
-				return data.consultant;
-			},
-
-			setConsultant: function(consultant) {
-				data.consultant = consultant;
-			},
-
-
-			getClient: function() {
-				return data.client;
-			},
-
-			setClient: function(client) {
-				data.client = client;
-			},
-
-			getClientMood: function() {
-				return data.clientMood;
-			},
-
-			setClientMood: function(clientMood) {
-				data.clientMood = clientMood;
-			},
-
-			getClientConsultants: function() {
-				return data.clientConsultants;
-			},
-
-			setClientConsultants: function(clientConsultants) {
-				data.clientConsultants = clientConsultants;
-			}
-
-		};
-
-	});
 })();
