@@ -56,11 +56,11 @@
 		};
 	});
 
-	app.controller('UpdateMoodController', function($scope, XrayMachine, LoginHelper, ConsultantManager, NotificationHelper){
+	app.controller('UpdateMoodController', function($scope, XrayMachine, LoginHelper, NotificationHelper){
 	    // Default panel here
 	    $scope.newUpdate = {};
 
-		ConsultantManager.getClientsForConsultant(LoginHelper.getUser()).then(function(data){			
+		XrayMachine.getClientsForUser(LoginHelper.getUser()).success(function(data){			
 			$scope.clientsForUser = data;
 			if (data[0]) {
 				$scope.newUpdate.client = data[0].clientCode;
@@ -148,17 +148,17 @@
 
 	});
 
-	app.controller('ConsultantViewController', function($scope, ConsultantManager, Grapher, $routeParams) {
+	app.controller('ConsultantViewController', function($scope, Grapher, $routeParams) {
 		var init = function () {
             console.log("ConsultantView Initialising...");
 
             var email = $routeParams.email;
 
-            ConsultantManager.getConsultant(email).then(function(consultantData) {
+            XrayMachine.getConsultant(email).success(function(consultantData) {
             	$scope.consultant = consultantData;
         	});
 
-			ConsultantManager.getConsultantMoods(email).then(function(moodData) {
+			XrayMachine.getConsultantMood(email).success(function(moodData) {
             	$scope.consultantMood = moodData;
 				Grapher.createGraph(moodData);
         	});
