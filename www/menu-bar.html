@@ -16,3 +16,6 @@
     </ul>
   </div>
 </div>
+<div ng-show="notify.visible" ng-click="closeNotfication()" class="alert alert-success text-center notification animate-show" role="alert">
+  <strong>{{notify.strongText}}</strong>{{notify.text}}
+</div>

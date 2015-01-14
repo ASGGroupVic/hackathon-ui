@@ -2,7 +2,7 @@
 
 	var app = angular.module('clientXray.controllers', ['clientXray.factories', 'clientXray.graph']);
 
-	app.controller('NavigationController', function($scope, $location, LoginHelper) {
+	app.controller('NavigationController', function($scope, $location, LoginHelper, NotificationHelper) {
 		// Make sure dropdown menu closes itselt upon item click
 		angular.element(document).ready(function () {
 			$('.navbar-collapse a').click(function(){
@@ -19,6 +19,20 @@
         		$scope.showMenu = newValue;
     		}
     	);
+
+    	$scope.$watch(
+			function () { 
+				return NotificationHelper.isVisible(); 
+			},
+			function (newValue) {
+        		$scope.notify = NotificationHelper.getNotification();
+        		console.log($scope.notify.strongText);
+    		}
+    	);
+
+    	$scope.closeNotfication = function() {
+    		NotificationHelper.closeNotification();
+    	};
 
 		// Set current path each time page is changed
     	$scope.$on('$locationChangeSuccess', function(event) {
@@ -42,41 +56,25 @@
 		};
 	});
 
-	app.controller('UpdateMoodController', function($scope, XrayMachine, LoginHelper){
+	app.controller('UpdateMoodController', function($scope, XrayMachine, LoginHelper, ConsultantManager, NotificationHelper){
 	    // Default panel here
 	    $scope.newUpdate = {};
-	    $scope.successNotify = false;
 
-	    // Run everytime new user is logged in
-		$scope.$watch(
-			function () {
-				return LoginHelper.getUser();
-			},
-			function (newValue) {
-				if (newValue !== null)
-				{
-					console.log("New Login Detected: " + newValue);
-					XrayMachine.getClientsForUser(LoginHelper.getUser()).success(function(data){			
-		 				$scope.clientsForUser = data;
-		 				if (data[0]) {
-		 					$scope.newUpdate.client = data[0].clientCode;
-		 				}
-		 				else {
-		 					$scope.newUpdate.client = 'bench';
-		 				}
-		 			});
-		 			XrayMachine.getConsultantMoodBriefHistory(LoginHelper.getUser()).success(function(data){			
-		 				if (data[0]) {
-		 					$scope.moodHistory = data;
-		 				}
-		 			});
-				}
+		ConsultantManager.getClientsForConsultant(LoginHelper.getUser()).then(function(data){			
+			$scope.clientsForUser = data;
+			if (data[0]) {
+				$scope.newUpdate.client = data[0].clientCode;
 			}
-		);
+			else {
+				$scope.newUpdate.client = 'bench';
+			}
+		});
 
-	    $scope.closeNotfication = function() {
-	    	$scope.successNotify = false;
-	    };
+		XrayMachine.getConsultantMoodBriefHistory(LoginHelper.getUser()).success(function(data){			
+			if (data[0]) {
+				$scope.moodHistory = data;
+			}
+		});
 
 	    $scope.getHashtags = function(){
 			var regex = /#[^\s]+/g;
@@ -97,7 +95,7 @@
 			XrayMachine.updateMood(email, moodObject).success(function(){
 				// Mood has been successfully sent to API
 				$scope.newUpdate.notes = null;
-				$scope.successNotify = true;
+				NotificationHelper.showNotification("You're Awesome", "You've just updated your mood!");
 			});
 		};
   	});
@@ -133,7 +131,6 @@
 		};	
 
 	    $scope.viewClient = function(clientCode){
-			
 			$location.path('/client/'+clientCode);
 		};
 
@@ -151,21 +148,20 @@
 
 	});
 
-	app.controller('ConsultantViewController', function($scope, XrayMachine, Grapher, $routeParams) {
+	app.controller('ConsultantViewController', function($scope, ConsultantManager, Grapher, $routeParams) {
 		var init = function () {
             console.log("ConsultantView Initialising...");
 
             var email = $routeParams.email;
 
-            XrayMachine.getConsultantMood(email).success(function(consultantData) {
-			 	console.log('consultantData : ' + consultantData);
-				$scope.consultantMood = consultantData;
-				Grapher.createGraph(consultantData);
-			});
+            ConsultantManager.getConsultant(email).then(function(consultantData) {
+            	$scope.consultant = consultantData;
+        	});
 
-			XrayMachine.getConsultant(email).success(function(consultantData) {			 	
-				$scope.consultant = consultantData;
-			});
+			ConsultantManager.getConsultantMoods(email).then(function(moodData) {
+            	$scope.consultantMood = moodData;
+				Grapher.createGraph(moodData);
+        	});
         };
 
         // fire on controller loaded
