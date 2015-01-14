@@ -5,8 +5,8 @@
 	app.directive("menuBar", function() {
 		return {
 			restrict: 'E',
-			templateUrl: 'menu-bar.html'
+			templateUrl: 'html/menu-bar.html'
 		};
 	});
-	
+
 })();

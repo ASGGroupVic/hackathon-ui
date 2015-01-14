@@ -14,27 +14,27 @@
         $routeProvider
             // route for the home/update-mood page
             .when('/', {
-                templateUrl : 'update-mood.html',
+                templateUrl : 'html/update-mood.html',
                 controller  : 'UpdateMoodController'
             })
             // route for the search page
             .when('/search', {
-                templateUrl : 'search.html',
+                templateUrl : 'html/search.html',
                 controller  : 'SearchController'
             })
             // route for the login page
             .when('/login', {
-                templateUrl : 'login.html',
+                templateUrl : 'html/login.html',
                 controller  : 'NavigationController'
             })
             // route for the consultant view page
             .when('/consultant/:email', {
-                templateUrl : 'consultant-view.html',
+                templateUrl : 'html/consultant-view.html',
                 controller  : 'ConsultantViewController'
             })
             // route for the client view page
             .when('/client/:clientCode', {
-                templateUrl : 'client-view.html',
+                templateUrl : 'html/client-view.html',
                 controller  : 'ClientViewController'
             })
             .otherwise({redirectTo:'/'});
