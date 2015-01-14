@@ -8,7 +8,7 @@
             <img class="emotIcon" ng-src="img/{{mood['mood.name']}}.png"/> count: {{mood.count}}
         </li>        
     </ul>
-    <b>Overall positivity: {{overallClientMood}}%</b>
+    <b>Overall positivity: {{overallClientMood | number : 0}}%</b>
 
     <div class="table-responsive">
     	<table class="table table-hover">
