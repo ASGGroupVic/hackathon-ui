@@ -148,7 +148,7 @@
 
 	});
 
-	app.controller('ConsultantViewController', function($scope, Grapher, $routeParams) {
+	app.controller('ConsultantViewController', function($scope, XrayMachine, Grapher, $routeParams) {
 		var init = function () {
             console.log("ConsultantView Initialising...");
 
