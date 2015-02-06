@@ -37,9 +37,14 @@
                 templateUrl : 'html/client-view.html',
                 controller  : 'ClientViewController'
             })
+            // route for the skills page
+            .when('/skills', {
+                templateUrl : 'html/skills.html',
+                controller  : 'SkillsController'
+            })
             .otherwise({redirectTo:'/'});
 
-        $locationProvider.html5Mode(true);
+        //$locationProvider.html5Mode(true);
 
     })
     .run(function($location, LoginHelper) {

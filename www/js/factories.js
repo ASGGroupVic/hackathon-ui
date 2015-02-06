@@ -108,6 +108,14 @@
 			});
 		};
 
+		factory.getInputSuggestion = function(searchType, searchTerm) {
+			// Need to add searchTerm to request once API is hooked up
+			return $http({
+				method : 'GET',
+				url : searchType
+			});
+		};
+
   		return factory;
   	});
 

@@ -85,6 +85,7 @@
 			    matches.push(match[0].replace("#", ""));
 			    match = regex.exec($scope.newUpdate.notes);
 			}
+
 			return matches.join(",");
 	    };
 
@@ -208,4 +209,31 @@
 			$location.path('/consultant/'+email);
 		};			
 	});
+
+	app.controller('SkillsController', function($scope, $location) {
+		$scope.skills = [];
+        $scope.rating = 1;						
+
+        $scope.newSkill = function(selectedRating) {
+        	if($scope.selectedSkill !== "") {
+        		$scope.skills.push({
+					name: $scope.selectedSkill, 
+					rating: selectedRating,
+					edit: false
+				});
+				$scope.selectedSkill = "";
+				$scope.rating = 1;
+			}
+		};	
+		
+		$scope.edit = function(skill) {
+			skill.edit = true;
+		};
+
+		$scope.update = function(skill) {
+			var index = $scope.skills.indexOf(skill) + 1;
+			$scope.skills.splice(index, 1);
+		};
+	});
+
 })();
