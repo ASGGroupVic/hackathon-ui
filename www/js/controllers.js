@@ -214,25 +214,29 @@
 		$scope.skills = [];
         $scope.rating = 1;						
 
-        $scope.newSkill = function(selectedRating) {
+        $scope.addSkill = function() {
         	if($scope.selectedSkill !== "") {
         		$scope.skills.push({
 					name: $scope.selectedSkill, 
-					rating: selectedRating,
+					rating: $scope.rating,
 					edit: false
 				});
 				$scope.selectedSkill = "";
 				$scope.rating = 1;
 			}
-		};	
+		};
+
+		$scope.remove = function(skill) {
+			var index = $scope.skills.indexOf(skill);
+			$scope.skills.splice(index, 1);
+		};
 		
 		$scope.edit = function(skill) {
 			skill.edit = true;
 		};
 
 		$scope.update = function(skill) {
-			var index = $scope.skills.indexOf(skill) + 1;
-			$scope.skills.splice(index, 1);
+			skill.edit = false;
 		};
 	});
 
