@@ -1,0 +1,27 @@
+<div>
+	<h4>Add Opportunity</h4>
+	<form novalidate ng-submit="">
+		<div class="row">
+			<div class="form-group col-xs-6">
+		        <label for="oppName">Name</label>
+		        <input name="oppName" type="text" ng-model="name" class="form-control"/>
+	      	</div>
+	      	<div class="form-group col-xs-6">
+		        <label for="client">Client</label>
+				<div auto-complete url="/data/suggestions.json" model="client"></div>	      	
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-12">
+		        <label for="desc">Description</label>
+		        <textarea name="desc" type="text" ng-model="description" class="form-control"></textarea>
+	      	</div>
+		</div>
+		<div>
+			<div>
+		        <label for="desc">Description</label>
+		        <textarea name="desc" type="text" ng-model="description" class="form-control"></textarea>
+	      	</div>
+		</div>
+	</form>
+</div>

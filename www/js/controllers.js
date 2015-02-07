@@ -240,4 +240,7 @@
 		};
 	});
 
+	app.controller('AddOpportunityController', function($scope, $location) {
+		
+	});
 })();

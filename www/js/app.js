@@ -41,6 +41,10 @@
             .when('/skills', {
                 templateUrl : 'html/skills.html',
                 controller  : 'SkillsController'
+            })// route for the skills page
+            .when('/add-opportunity', {
+                templateUrl : 'html/add-opportunity.html',
+                controller  : 'AddOpportunityController'
             })
             .otherwise({redirectTo:'/'});
 

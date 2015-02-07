@@ -13,7 +13,8 @@
 	    return {
 	        restrict:'A',
 	        scope: {
-	            selectedTag:'=model'
+	            selectedTag:'=model',
+	            sampleText: '=placeholder'
 	        },
 	        templateUrl:'html/auto-complete.html',
 	        link:function(scope,elem,attrs){

@@ -1,41 +1,39 @@
 <div>
-    <div>
-		<h4>Skills</h4>
-		<table class="table table-condensed">
-		  <thead>
-		    <tr>
-		      <th>Skill</th>
-		      <th>Rating</th>
-		      <th></th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		  	<tr>
-				<td class="col-xs-5"><div auto-complete url="/data/suggestions.json" model="selectedSkill"></div></td>
-				<td class="col-xs-5"><div star-rating rating-value="rating" functional="true" max="5" on-rating-selected=""></div></td>
-				<td class="text-center col-xs-2"><button type="button" ng-click="addSkill()" class="btn btn-success">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</button></td>
-		    </tr>
-		    <tr ng-repeat="skill in skills">
-	    		<td class="col-xs-5">{{skill.name}}</td>
-		    	<td class="col-xs-5"><div star-rating rating-value="skill.rating" functional="skill.edit" max="5" on-rating-selected=""></div></td>
-		    	<td class="text-center col-xs-2">
-			    	<div ng-hide="skill.edit" class="btn-group">
-				    	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			    			<span class="glyphicon glyphicon-option-vertical"></span>
-				    	</button>
-						<ul class="dropdown-menu pull-right" role="menu">
-							<li><a ng-click="edit(skill)">Update</a></li>
-							<li><a ng-click="remove(skill)">Delete</a></li>
-						</ul>
-					</div>
-			    	<button ng-show="skill.edit" ng-click="update(skill)" type="button" class="btn btn-success dropdown-toggle">
-		    			<span class="glyphicon glyphicon-ok"></span>
+	<h4>Add Skills</h4>
+	<table class="table table-condensed">
+	  <thead>
+	    <tr>
+	      <th>Skill</th>
+	      <th>Rating</th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<tr>
+			<td class="col-xs-5"><div auto-complete url="/data/suggestions.json" model="selectedSkill"></div></td>
+			<td class="col-xs-5"><div star-rating rating-value="rating" functional="true" max="5" on-rating-selected=""></div></td>
+			<td class="text-center col-xs-2"><button type="button" ng-click="addSkill()" class="btn btn-success">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			</button></td>
+	    </tr>
+	    <tr ng-repeat="skill in skills">
+    		<td class="col-xs-5">{{skill.name}}</td>
+	    	<td class="col-xs-5"><div star-rating rating-value="skill.rating" functional="skill.edit" max="5" on-rating-selected=""></div></td>
+	    	<td class="text-center col-xs-2">
+		    	<div ng-hide="skill.edit" class="btn-group">
+			    	<button type="button" class="btn bt-default btn-relax dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+		    			<span class="glyphicon glyphicon-option-vertical"></span>
 			    	</button>
-		    	</td>
-		    </tr>
-		  </tbody>
-		</table>  
-  	</div>
+					<ul class="dropdown-menu pull-right" role="menu">
+						<li><a ng-click="edit(skill)">Update</a></li>
+						<li><a ng-click="remove(skill)">Delete</a></li>
+					</ul>
+				</div>
+		    	<button ng-show="skill.edit" ng-click="update(skill)" type="button" class="btn btn-success dropdown-toggle">
+	    			<span class="glyphicon glyphicon-ok"></span>
+		    	</button>
+	    	</td>
+	    </tr>
+	  </tbody>
+	</table>  
 </div>

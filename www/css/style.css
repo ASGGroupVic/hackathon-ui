@@ -31,6 +31,16 @@ input[type="radio"]:checked + img{
 
 }
 
+.btn-relax {
+	color: inherit;
+	border: none;
+	background-color: #fff;
+}
+
+.dropdown-menu {
+	min-width: 80px;
+}
+
 .notification {
 	position: absolute;
 	z-index: 1;
@@ -89,8 +99,7 @@ ul#moodList li:nth-child(even) {
 }
 
 .edit-row {
-	position: absolute;
-	width: 100%;
+	background-color: #a9a9a9;
 }
 
 /* Star Rating styles */
